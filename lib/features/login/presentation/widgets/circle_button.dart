@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yoga_training_app/constants/constants.dart';
+import 'package:yoga_training_app/core/constants/constants.dart';
 
 class CircleButton extends StatelessWidget {
   @override

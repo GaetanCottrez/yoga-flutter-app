@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:yoga_training_app/constants/constants.dart';
-import 'package:yoga_training_app/data/data.dart';
+import 'package:yoga_training_app/core/constants/constants.dart';
 import 'package:yoga_training_app/models/style.dart';
+
+import 'package:yoga_training_app/features/home/data/local/beginners.dart';
 
 class DiffStyles extends StatelessWidget {
   _buildStyles(BuildContext context, int index) {
     Size size = MediaQuery.of(context).size;
-    Style style = styles[index];
+    Style beginner = beginners[index];
 
     return Stack(
       alignment: Alignment.center,
@@ -41,7 +42,7 @@ class DiffStyles extends StatelessWidget {
                       right: appPadding * 3,
                       top: appPadding),
                   child: Text(
-                    style.name,
+                    beginner.name,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -67,7 +68,7 @@ class DiffStyles extends StatelessWidget {
                             width: size.width * 0.01,
                           ),
                           Text(
-                            style.time.toString() + ' min',
+                            beginner.time.toString() + ' min',
                             style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
@@ -99,7 +100,7 @@ class DiffStyles extends StatelessWidget {
             child: Image(
               width: size.width * 0.3,
               height: size.height * 0.2,
-              image: AssetImage(style.imageUrl),
+              image: AssetImage(beginner.imageUrl),
             ),
           ),
         )
@@ -142,7 +143,7 @@ class DiffStyles extends StatelessWidget {
             child: ListView.builder(
                 physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
-                itemCount: styles.length,
+                itemCount: beginners.length > 5 ? 5 : beginners.length,
                 itemBuilder: (BuildContext context, int index) {
                   return _buildStyles(context, index);
                 }),

@@ -1,9 +1,10 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:yoga_training_app/constants/constants.dart';
 import 'package:yoga_training_app/features/home/presentation/widgets/courses.dart';
 import 'package:yoga_training_app/features/home/presentation/widgets/custom_app_bar.dart';
 import 'package:yoga_training_app/features/home/presentation/widgets/diff_styles.dart';
+
+import 'package:yoga_training_app/core/constants/constants.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int selsctedIconIndex = 2;
+  int selectedIconIndex = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.transparent,
-        index: selsctedIconIndex,
+        index: selectedIconIndex,
         buttonBackgroundColor: primary,
         height: 60.0,
         color: white,
         onTap: (index) {
           setState(() {
-            selsctedIconIndex = index;
+            selectedIconIndex = index;
           });
         },
         animationDuration: Duration(
@@ -46,27 +47,27 @@ class _HomeScreenState extends State<HomeScreen> {
           Icon(
             Icons.play_arrow_outlined,
             size: 30,
-            color: selsctedIconIndex == 0 ? white : black,
+            color: selectedIconIndex == 0 ? white : black,
           ),
           Icon(
             Icons.search,
             size: 30,
-            color: selsctedIconIndex == 1 ? white : black,
+            color: selectedIconIndex == 1 ? white : black,
           ),
           Icon(
             Icons.home_outlined,
             size: 30,
-            color: selsctedIconIndex == 2 ? white : black,
+            color: selectedIconIndex == 2 ? white : black,
           ),
           Icon(
             Icons.favorite_border_outlined,
             size: 30,
-            color: selsctedIconIndex == 3 ? white : black,
+            color: selectedIconIndex == 3 ? white : black,
           ),
           Icon(
             Icons.person_outline,
             size: 30,
-            color: selsctedIconIndex == 4 ? white : black,
+            color: selectedIconIndex == 4 ? white : black,
           ),
         ],
       ),

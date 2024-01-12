@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-import 'package:yoga_training_app/constants/constants.dart';
+import 'package:yoga_training_app/core/constants/constants.dart';
 
 class CustomAppBar extends StatelessWidget {
   @override
@@ -48,7 +48,7 @@ class CustomAppBar extends StatelessWidget {
                 width: size.width * 0.01,
               ),
               Text(
-                'Tamara Bellis',
+                'Jane Doe',
                 style: TextStyle(
                     color: black, fontWeight: FontWeight.w600, fontSize: 18),
               ),

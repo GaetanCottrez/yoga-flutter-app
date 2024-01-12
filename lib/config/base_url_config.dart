@@ -1,4 +1,4 @@
 class BaseUrlConfig {
-  final String baseUrlDevelopment = 'https://reqres.in/api/';
-  final String baseUrlProduction = 'https://newsapi.org';
+  final String baseUrlDevelopment = 'http://localhost:3000/';
+  final String baseUrlProduction = 'https://reqres.in/api/';
 }

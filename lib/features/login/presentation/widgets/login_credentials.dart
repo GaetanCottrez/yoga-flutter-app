@@ -1,29 +1,32 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
-import 'package:yoga_training_app/constants/constants.dart';
+import 'package:yoga_training_app/core/constants/constants.dart';
 import 'package:yoga_training_app/features/home/presentation/pages/home_screen.dart';
-import '../../../../config/environment_config.dart';
-import '../../../../core/log/print.dart';
-import '../../data/repositories/token.dart';
+import 'package:yoga_training_app/config/environment_config.dart';
+import 'package:yoga_training_app/core/log/print.dart';
+import 'package:yoga_training_app/features/login/data/repositories/token.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 class LoginCredentials extends StatelessWidget {
-  TextEditingController emailController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final TokenStorage _tokenStorage = TokenStorage();
 
-  Future<String?> login(String email, password) async {
+  Future<String?> login(String username, password) async {
     try {
       Response response = await post(
-          Uri.parse(EnvironmentConfig.getBaseUrl() + 'login'),
-          body: {'email': email, 'password': password});
+          Uri.parse(EnvironmentConfig.getBaseUrl() + 'auth/login'),
+          body: {'username': username, 'password': password});
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         var data = jsonDecode(response.body.toString());
-        printInternal(data['token']);
+        printInternal(data['access_token']);
         printInternal('Login successfully');
-        await _tokenStorage.setAccessToken(data['token']);
-        return data['token'];
+        printInternal(JwtDecoder.decode(data['access_token']));
+        printInternal(JwtDecoder.isExpired(data['access_token']));
+        await _tokenStorage.setAccessToken(data['access_token']);
+        return data['access_token'];
       } else {
         printInternal('failed');
         return null;
@@ -57,15 +60,15 @@ class LoginCredentials extends StatelessWidget {
             color: white,
             borderRadius: BorderRadius.circular(30.0),
             child: TextField(
-              controller: emailController,
+              controller: usernameController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(borderSide: BorderSide.none),
                 contentPadding: EdgeInsets.symmetric(
                     vertical: appPadding * 0.75, horizontal: appPadding),
                 fillColor: white,
-                hintText: 'E-mail',
+                hintText: 'Nom d\'utilisateur',
                 suffixIcon: Icon(
-                  Icons.email_outlined,
+                  Icons.person,
                   size: 25.0,
                   color: black.withOpacity(0.4),
                 ),
@@ -111,7 +114,7 @@ class LoginCredentials extends StatelessWidget {
           InkWell(
               child: GestureDetector(
             onTap: () async {
-              var result = await login(emailController.text.toString(),
+              var result = await login(usernameController.text.toString(),
                   passwordController.text.toString());
               printInternal(result?.length);
               if (result != null) {
@@ -119,7 +122,7 @@ class LoginCredentials extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => HomeScreen()));
               } else {
                 var snackBar = SnackBar(
-                  content: Text('E-mail ou mot de passe incorrect'),
+                  content: Text('Nom d\'utilisateur ou mot de passe incorrect'),
                   backgroundColor: Colors.red,
                   behavior: SnackBarBehavior.floating,
                   duration: Duration(milliseconds: 3000),

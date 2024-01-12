@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:yoga_training_app/constants/constants.dart';
-import 'package:yoga_training_app/data/data.dart';
-import 'package:yoga_training_app/models/course.dart';
+import 'package:yoga_training_app/features/home/data/models/course.dart';
+import 'package:yoga_training_app/core/constants/constants.dart';
+import 'package:yoga_training_app/features/home/data/local/courses.dart';
 
 class Courses extends StatelessWidget {
   Widget _buildCourses(BuildContext context, int index) {
@@ -138,7 +138,7 @@ class Courses extends StatelessWidget {
           Expanded(
               child: ListView.builder(
             physics: BouncingScrollPhysics(),
-            itemCount: courses.length,
+            itemCount: courses.length > 5 ? 5 : courses.length,
             itemBuilder: (context, index) {
               return _buildCourses(context, index);
             },

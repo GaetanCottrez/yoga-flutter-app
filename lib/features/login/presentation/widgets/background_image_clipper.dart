@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yoga_training_app/constants/constants.dart';
+import 'package:yoga_training_app/core/constants/constants.dart';
 import 'package:yoga_training_app/features/login/presentation/widgets/curve_clipper.dart';
 
 class BackgroundImage extends StatelessWidget {
