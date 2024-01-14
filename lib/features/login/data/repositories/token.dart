@@ -4,10 +4,10 @@ class TokenStorage {
   // Create storage
   final storage = const FlutterSecureStorage();
 
-  final String _keyAccessToken = '';
+  final String _keyAccessToken = 'access_token';
 
-  Future setAccessToken(String username) async {
-    await storage.write(key: _keyAccessToken, value: username);
+  Future setAccessToken(String accessToken) async {
+    await storage.write(key: _keyAccessToken, value: accessToken);
   }
 
   Future<String> getAccessToken() async {
