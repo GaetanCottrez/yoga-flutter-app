@@ -6,8 +6,8 @@ import 'package:yoga_training_app/config/environment_config.dart';
 import 'package:yoga_training_app/features/home/data/models/course.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
 import 'package:yoga_training_app/features/login/data/repositories/token.dart';
-
-import '../../data/models/pose.dart';
+import 'package:yoga_training_app/features/startup/presentation/pages/startup_screen.dart';
+import 'package:yoga_training_app/features/home/data/models/pose.dart';
 
 class Courses extends StatelessWidget {
   final TokenStorage _tokenStorage = TokenStorage();
@@ -41,6 +41,7 @@ class Courses extends StatelessWidget {
     Course course = new Course(
         imageUrl: courseJson['poses'][0]['img_url_jpg'],
         name: courseJson['title'],
+        description: courseJson['description'],
         time: courseJson['duration'],
         students: courseJson['difficulty']['difficulty_level'],
         poses: convertJSONPoses(courseJson));
@@ -142,77 +143,91 @@ class Courses extends StatelessWidget {
             ]),
         child: Padding(
           padding: const EdgeInsets.all(appPadding),
-          child: Row(
-            children: [
-              Container(
-                width: size.width * 0.3,
-                height: size.height * 0.2,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: Image.network(course.imageUrl),
-                ),
-              ),
-              Container(
-                width: size.width * 0.4,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: appPadding / 2, top: appPadding / 1.5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        course.name,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                        maxLines: 2,
-                      ),
-                      SizedBox(
-                        height: size.height * 0.01,
-                      ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.folder_open_rounded,
-                            color: black.withOpacity(0.3),
-                          ),
-                          SizedBox(
-                            width: size.width * 0.01,
-                          ),
-                          Text(
-                            course.students,
-                            style: TextStyle(
-                              color: black.withOpacity(0.3),
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: size.height * 0.01,
-                      ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.access_time_outlined,
-                            color: black.withOpacity(0.3),
-                          ),
-                          SizedBox(
-                            width: size.width * 0.01,
-                          ),
-                          Text(
-                            course.time.toString() + ' min',
-                            style: TextStyle(
-                              color: black.withOpacity(0.3),
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => StartupScreen(course: course)));
+            },
+            child: Row(
+              children: [
+                Container(
+                  width: size.width * 0.3,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: Image.network(course.imageUrl),
                   ),
                 ),
-              )
-            ],
+                Container(
+                  width: size.width * 0.5,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: appPadding / 2, top: appPadding / 1.5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(children: [
+                          Text(
+                            course.name,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                            maxLines: 2,
+                          ),
+                          Spacer(),
+                          Icon(
+                            Icons.arrow_right_alt_rounded,
+                            color: black.withOpacity(0.3),
+                          ),
+                        ]),
+                        SizedBox(
+                          height: size.height * 0.01,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.folder_open_rounded,
+                              color: black.withOpacity(0.3),
+                            ),
+                            SizedBox(
+                              width: size.width * 0.01,
+                            ),
+                            Text(
+                              course.students,
+                              style: TextStyle(
+                                color: black.withOpacity(0.3),
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: size.height * 0.01,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.access_time_outlined,
+                              color: black.withOpacity(0.3),
+                            ),
+                            SizedBox(
+                              width: size.width * 0.01,
+                            ),
+                            Text(
+                              course.time.toString() + ' min',
+                              style: TextStyle(
+                                color: black.withOpacity(0.3),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

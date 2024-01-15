@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:yoga_training_app/config/environment_config.dart';
@@ -87,7 +85,6 @@ class _SplashScreenState extends State<SplashScreen> {
   void loadScreen() async {
     var accessToken = await _tokenStorage.getAccessToken();
 
-    printInternal('snapshot');
     printInternal(accessToken != '' && !JwtDecoder.isExpired(accessToken));
     printInternal(
         accessToken != '' ? JwtDecoder.decode(accessToken) : 'no token');

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:yoga_training_app/core/log/print.dart';
 import 'dart:math' as math;
 import 'package:yoga_training_app/features/login/data/repositories/token.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
