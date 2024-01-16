@@ -4,6 +4,7 @@ import 'package:yoga_training_app/features/home/data/models/course.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
 import 'package:yoga_training_app/features/home/data/models/pose.dart';
 import 'package:yoga_training_app/features/startup/presentation/pages/details_pose_screen.dart';
+import 'package:yoga_training_app/features/launched_session/presentation/pages/launchedSession.dart';
 
 class StartupCourse extends StatelessWidget {
   final Course _course;
@@ -24,7 +25,7 @@ class StartupCourse extends StatelessWidget {
           displayCourseTimeAndDifficulty(),
           displayCourseImg(),
           displayCourseDescription(),
-          ButtonStartup(),
+          ButtonStartup(context),
           Expanded(
             child: FutureBuilder<Course>(
               future: this.getCourse(),
@@ -57,7 +58,7 @@ class StartupCourse extends StatelessWidget {
     );
   }
 
-  Padding ButtonStartup() {
+  Padding ButtonStartup(BuildContext context) {
     return Padding(
         padding:
             const EdgeInsets.symmetric(horizontal: appPadding, vertical: 5),
@@ -75,12 +76,12 @@ class StartupCourse extends StatelessWidget {
               backgroundColor:
                   MaterialStateColor.resolveWith((states) => primary)),
           onPressed: () {
-            /* Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => rUready(
-                          YogaTableName: widget.yogaSum.YogaWorkOutName,
-                        ))); */
+            printInternal('STARTUP COURSE');
+
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => LaunchedSession(course: _course)));
           },
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
