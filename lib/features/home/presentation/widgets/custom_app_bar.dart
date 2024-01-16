@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'dart:math' as math;
+import 'package:yoga_training_app/core/log/print.dart';
 import 'package:yoga_training_app/features/login/data/repositories/token.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
 
@@ -26,6 +26,9 @@ class CustomAppBar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
+              Row(
+                children: [buildBack(context)],
+              ),
               Row(
                 children: [
                   Padding(
@@ -68,42 +71,27 @@ class CustomAppBar extends StatelessWidget {
                   ),
                 ],
               ),
-              Row(
-                children: [
-                  Stack(
-                    children: [
-                      Icon(
-                        Icons.notifications_none_rounded,
-                        size: 30.0,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: primary,
-                            borderRadius: BorderRadius.circular(30.0)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(
-                            '0',
-                            style: TextStyle(color: white, fontSize: 8),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  Transform(
-                    transform: Matrix4.rotationY(math.pi),
-                    alignment: Alignment.center,
-                    child: Icon(
-                      Icons.sort_rounded,
-                      size: 30.0,
-                    ),
-                  )
-                ],
-              )
             ],
           ),
         );
       },
+    );
+  }
+
+  buildBack(BuildContext context) {
+    if (!ModalRoute.of(context)!.isFirst) {
+      return GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.arrow_back_sharp,
+            size: 30.0,
+          ));
+    }
+    return Text(
+      'Namaste !',
+      style: TextStyle(color: black, fontWeight: FontWeight.w600, fontSize: 18),
     );
   }
 }

@@ -145,7 +145,7 @@ class Courses extends StatelessWidget {
           padding: const EdgeInsets.all(appPadding),
           child: GestureDetector(
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => StartupScreen(course: course)));
