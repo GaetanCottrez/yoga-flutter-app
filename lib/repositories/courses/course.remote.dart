@@ -5,6 +5,7 @@ import 'package:yoga_training_app/domain/data-sources/course.data-source.dart';
 import 'package:yoga_training_app/config/environment_config.dart';
 import 'package:yoga_training_app/core/log/print.dart';
 import 'package:yoga_training_app/domain/entities/pose.dart';
+import 'package:yoga_training_app/repositories/unauthorized.exception.dart';
 
 class CourseRemoteDataSource implements ICourseDataSource {
   @override
@@ -27,11 +28,14 @@ class CourseRemoteDataSource implements ICourseDataSource {
         for (var courseJson in data) {
           courseList.add(ConvertJSONCourse(courseJson));
         }
+      } else if (response.statusCode == 401) {
+        throw UnauthorizedException();
       } else {
-        printInternal('failed');
+        printInternal('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
       printInternal(e.toString());
+      throw e;
     }
     return courseList;
   }

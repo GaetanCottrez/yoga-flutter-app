@@ -3,6 +3,8 @@ import 'package:yoga_training_app/domain/entities/course.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
 import 'package:yoga_training_app/features/startup/presentation/pages/startup_screen.dart';
 import 'package:yoga_training_app/domain/use-cases/get_all_courses.dart';
+import 'package:yoga_training_app/repositories/unauthorized.exception.dart';
+import 'package:yoga_training_app/features/login/presentation/pages/login_screen.dart';
 
 class Courses extends StatelessWidget {
   final GetAllCoursesUseCase _getAllCoursesUseCase;
@@ -12,6 +14,19 @@ class Courses extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    getAllCourses() async {
+      List<Course> courses = [];
+      try {
+        courses = await _getAllCoursesUseCase.call();
+        // Update your UI with the courses
+      } on UnauthorizedException catch (_) {
+        // Navigate to LoginScreen if unauthorized
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      }
+      return courses;
+    }
+
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +58,7 @@ class Courses extends StatelessWidget {
           ),
           Expanded(
             child: FutureBuilder<List<Course>>(
-              future: _getAllCoursesUseCase.call(),
+              future: getAllCourses(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   // The scroll is still being written, show a loading indicator

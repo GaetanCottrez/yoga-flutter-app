@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
 import 'package:yoga_training_app/domain/use-cases/get_beginner_courses.dart';
 import 'package:yoga_training_app/domain/entities/course.dart';
+import 'package:yoga_training_app/repositories/unauthorized.exception.dart';
+import 'package:yoga_training_app/features/login/presentation/pages/login_screen.dart';
 
 class Beginners extends StatelessWidget {
   final GetBeginnerCoursesUseCase _getBeginnerCoursesUseCase;
@@ -112,6 +114,18 @@ class Beginners extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+    getBeginnerCourses() async {
+      List<Course> courses = [];
+      try {
+        courses = await _getBeginnerCoursesUseCase.call();
+        // Update your UI with the courses
+      } on UnauthorizedException catch (_) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      }
+      return courses;
+    }
+
     return Column(
       children: [
         Padding(
@@ -139,7 +153,7 @@ class Beginners extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: appPadding / 2),
           child: FutureBuilder<List<Course>>(
-            future: _getBeginnerCoursesUseCase.call(),
+            future: getBeginnerCourses(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return SizedBox(

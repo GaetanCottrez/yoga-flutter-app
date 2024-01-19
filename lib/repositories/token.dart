@@ -12,6 +12,6 @@ class TokenStorage {
 
   Future<String> getAccessToken() async {
     var accessToken = await storage.read(key: _keyAccessToken) ?? '';
-    return accessToken ?? '';
+    return accessToken;
   }
 }
