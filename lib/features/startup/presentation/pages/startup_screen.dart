@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:yoga_training_app/core/log/print.dart';
 import 'package:yoga_training_app/features/home/presentation/widgets/custom_app_bar.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
-import 'package:yoga_training_app/features/home/data/models/course.dart';
+import 'package:yoga_training_app/domain/entities/course.dart';
 import 'package:yoga_training_app/features/startup/presentation//widgets/startup_course.dart';
 
 class StartupScreen extends StatefulWidget {

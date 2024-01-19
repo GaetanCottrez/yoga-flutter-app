@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yoga_training_app/core/log/print.dart';
-import 'package:yoga_training_app/features/home/data/models/course.dart';
+import 'package:yoga_training_app/domain/entities/course.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
-import 'package:yoga_training_app/features/home/data/models/pose.dart';
+import 'package:yoga_training_app/domain/entities/pose.dart';
 import 'package:yoga_training_app/features/startup/presentation/pages/details_pose_screen.dart';
 import 'package:yoga_training_app/features/launched_session/presentation/pages/launchedSession.dart';
 

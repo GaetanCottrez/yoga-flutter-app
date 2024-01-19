@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:yoga_training_app/features/home/data/models/pose.dart';
+import 'package:yoga_training_app/domain/entities/pose.dart';
 
 import 'WorkOut.dart';
 

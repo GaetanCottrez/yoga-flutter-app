@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:yoga_training_app/features/home/data/models/course.dart';
+import 'package:yoga_training_app/core/log/print.dart';
+import 'package:yoga_training_app/domain/entities/course.dart';
 import "dart:math";
-
-import 'package:yoga_training_app/features/home/data/models/pose.dart';
-
+import 'package:yoga_training_app/config/constant_config.dart';
+import 'package:yoga_training_app/domain/entities/pose.dart';
 import 'WorkOut.dart';
 
 class LaunchedSession extends StatelessWidget {
@@ -31,7 +31,7 @@ class LaunchedSession extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<TimerModel>(
-      create: (context) => TimerModel(context, poses: course.poses),
+      create: (context) => TimerModel(context, course: course),
       child: Scaffold(
         body: Center(
           child: Container(
@@ -80,15 +80,39 @@ class LaunchedSession extends StatelessWidget {
 }
 
 class TimerModel with ChangeNotifier {
-  List<Pose> poses;
+  Course course;
 
-  TimerModel(context, {required this.poses}) {
-    MyTimer(context);
+  TimerModel(context, {required this.course}) {
+    List<Pose> poses = MakeThisSession();
+    MyTimer(context, poses);
   }
 
   int countdown = 5;
 
-  MyTimer(context) async {
+  MakeThisSession() {
+    int courseTimeSeconds =
+        ((course.time * 60) / (ConstantConfig().durationPose + 5)).round();
+    if (course.poses.length < courseTimeSeconds) {
+      int courseTimeSeconds =
+          ((course.time * 60) / (ConstantConfig().durationPose + 5)).round();
+      if (course.poses.length < courseTimeSeconds) {
+        int posesToGenerate = courseTimeSeconds - course.poses.length;
+        Random random = new Random();
+        // Generate `posesToGenerate` number of poses.
+        for (int i = 0; i < posesToGenerate; i++) {
+          // Make sure to generate a random index which is within the bounds of `course.poses`.
+          int randomNumber = random.nextInt(course.poses.length);
+          // Add an existing pose from `course.poses` based on the random index.
+          course.poses.add(course.poses[randomNumber]);
+        }
+      }
+    }
+    printInternal('MakeThisSession');
+    printInternal(course.poses.length);
+    return course.poses;
+  }
+
+  MyTimer(context, List<Pose> poses) async {
     Timer.periodic(Duration(seconds: 1), (timer) {
       countdown--;
       if (countdown == 0) {

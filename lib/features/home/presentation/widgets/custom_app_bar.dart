@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:yoga_training_app/features/login/data/repositories/token.dart';
+import 'package:yoga_training_app/repositories/token.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
 
 class CustomAppBar extends StatelessWidget {
   final TokenStorage _tokenStorage = TokenStorage();
 
-  Future<String?> getName() async {
+  Future<String?> getName(BuildContext context) async {
     String accessToken = await _tokenStorage.getAccessToken();
     return JwtDecoder.decode(accessToken)['username'];
   }
@@ -16,7 +16,7 @@ class CustomAppBar extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return FutureBuilder<String?>(
-      future: getName(),
+      future: getName(context),
       builder: (context, snapshot) {
         String name = snapshot.data ?? 'Guest';
         return Padding(

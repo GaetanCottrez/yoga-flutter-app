@@ -5,7 +5,7 @@ import 'package:yoga_training_app/core/constants/constants.dart';
 import 'package:yoga_training_app/features/home/presentation/pages/home_screen.dart';
 import 'package:yoga_training_app/config/environment_config.dart';
 import 'package:yoga_training_app/core/log/print.dart';
-import 'package:yoga_training_app/features/login/data/repositories/token.dart';
+import 'package:yoga_training_app/repositories/token.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 class LoginCredentials extends StatelessWidget {

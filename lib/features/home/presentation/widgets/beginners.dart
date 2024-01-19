@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
-import 'package:yoga_training_app/models/style.dart';
+import 'package:yoga_training_app/domain/use-cases/get_beginner_courses.dart';
+import 'package:yoga_training_app/domain/entities/course.dart';
 
-import 'package:yoga_training_app/features/home/data/local/beginners.dart';
+class Beginners extends StatelessWidget {
+  final GetBeginnerCoursesUseCase _getBeginnerCoursesUseCase;
 
-class DiffStyles extends StatelessWidget {
-  _buildStyles(BuildContext context, int index) {
+  Beginners({required GetBeginnerCoursesUseCase getBeginnerCoursesUseCase})
+      : _getBeginnerCoursesUseCase = getBeginnerCoursesUseCase;
+
+  Widget _buildStyles(BuildContext context, Course beginner) {
     Size size = MediaQuery.of(context).size;
-    Style beginner = beginners[index];
 
     return Stack(
       alignment: Alignment.center,
@@ -94,14 +97,11 @@ class DiffStyles extends StatelessWidget {
           ),
         ),
         Positioned(
-          right: 0,
-          top: 0,
+          right: 20,
+          top: 60,
           child: Container(
-            child: Image(
-              width: size.width * 0.3,
-              height: size.height * 0.2,
-              image: AssetImage(beginner.imageUrl),
-            ),
+            child: Image.network(beginner.imageUrl,
+                width: size.width * 0.2, height: size.height * 0.2),
           ),
         )
       ],
@@ -138,15 +138,39 @@ class DiffStyles extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(left: appPadding / 2),
-          child: Container(
-            height: size.height * 0.33,
-            child: ListView.builder(
-                physics: BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                itemCount: beginners.length > 5 ? 5 : beginners.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return _buildStyles(context, index);
-                }),
+          child: FutureBuilder<List<Course>>(
+            future: _getBeginnerCoursesUseCase.call(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return SizedBox(
+                  height: size.height * 0.33,
+                  child: Center(child: CircularProgressIndicator()),
+                );
+              } else if (snapshot.hasError) {
+                return SizedBox(
+                  height: size.height * 0.33,
+                  child: Center(child: Text('Error: ${snapshot.error}')),
+                );
+              } else if (snapshot.hasData) {
+                List<Course> beginners = snapshot.data!;
+                return Container(
+                  height: size.height * 0.33,
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: beginners.length > 5 ? 5 : beginners.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return _buildStyles(context, beginners[index]);
+                    },
+                  ),
+                );
+              } else {
+                return SizedBox(
+                  height: size.height * 0.33,
+                  child: Center(child: Text('No beginners styles available')),
+                );
+              }
+            },
           ),
         )
       ],

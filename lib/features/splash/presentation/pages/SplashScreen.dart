@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:yoga_training_app/config/environment_config.dart';
 import 'package:restart_app/restart_app.dart';
-import 'package:yoga_training_app/features/login/data/repositories/token.dart';
+import 'package:yoga_training_app/repositories/token.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:yoga_training_app/core/log/print.dart';
 import 'package:yoga_training_app/features/home/presentation/pages/home_screen.dart';
@@ -70,7 +70,7 @@ class _SplashScreenState extends State<SplashScreen> {
     checkUp().then((value) {
       printInternal(value);
       if (value == true) {
-        loadScreen();
+        loadScreen(context);
       }
     });
   }
@@ -82,7 +82,7 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  void loadScreen() async {
+  void loadScreen(BuildContext context) async {
     var accessToken = await _tokenStorage.getAccessToken();
 
     printInternal(accessToken != '' && !JwtDecoder.isExpired(accessToken));

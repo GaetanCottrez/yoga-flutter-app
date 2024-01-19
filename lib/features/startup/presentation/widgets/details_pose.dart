@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
-import 'package:yoga_training_app/features/home/data/models/pose.dart';
+import 'package:yoga_training_app/domain/entities/pose.dart';
 
 class DetailsPose extends StatelessWidget {
   final Pose _pose;

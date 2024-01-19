@@ -2,9 +2,14 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:yoga_training_app/features/home/presentation/widgets/courses.dart';
 import 'package:yoga_training_app/features/home/presentation/widgets/custom_app_bar.dart';
-import 'package:yoga_training_app/features/home/presentation/widgets/diff_styles.dart';
+import 'package:yoga_training_app/features/home/presentation/widgets/beginners.dart';
 
 import 'package:yoga_training_app/core/constants/constants.dart';
+
+import 'package:yoga_training_app/domain/use-cases/get_all_courses.dart';
+import 'package:yoga_training_app/injections/course.injection.dart';
+
+import 'package:yoga_training_app/domain/use-cases/get_beginner_courses.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -12,6 +17,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  GetAllCoursesUseCase getAllCoursesUseCase =
+      InjectionContainer.provideGetAllCoursesUseCase();
+
+  GetBeginnerCoursesUseCase getBeginnerCoursesUseCase =
+      InjectionContainer.provideGetBeginnerCoursesUseCase();
+
   int selectedIconIndex = 2;
 
   @override
@@ -24,8 +35,10 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             CustomAppBar(),
-            DiffStyles(),
-            Courses(),
+            Beginners(
+              getBeginnerCoursesUseCase: getBeginnerCoursesUseCase,
+            ),
+            Courses(getAllCoursesUseCase: getAllCoursesUseCase),
           ],
         ),
       ),

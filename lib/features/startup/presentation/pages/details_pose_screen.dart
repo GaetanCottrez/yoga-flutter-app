@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:yoga_training_app/core/log/print.dart';
 import 'package:yoga_training_app/features/home/presentation/widgets/custom_app_bar.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
-import 'package:yoga_training_app/features/home/data/models/pose.dart';
+import 'package:yoga_training_app/domain/entities/pose.dart';
 import 'package:yoga_training_app/features/startup/presentation/widgets/details_pose.dart';
 
 class DetailsPoseScreen extends StatefulWidget {

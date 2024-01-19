@@ -1,66 +1,14 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:yoga_training_app/core/log/print.dart';
-import 'package:yoga_training_app/config/environment_config.dart';
-import 'package:yoga_training_app/features/home/data/models/course.dart';
+import 'package:yoga_training_app/domain/entities/course.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
-import 'package:yoga_training_app/features/login/data/repositories/token.dart';
 import 'package:yoga_training_app/features/startup/presentation/pages/startup_screen.dart';
-import 'package:yoga_training_app/features/home/data/models/pose.dart';
+import 'package:yoga_training_app/domain/use-cases/get_all_courses.dart';
 
 class Courses extends StatelessWidget {
-  final TokenStorage _tokenStorage = TokenStorage();
+  final GetAllCoursesUseCase _getAllCoursesUseCase;
 
-  Future<List<Course>> loadCourses() async {
-    var accessToken = await _tokenStorage.getAccessToken();
-    List<Course> courseList = [];
-    try {
-      Response response = await get(
-        Uri.parse(EnvironmentConfig.getBaseUrl() + 'session'),
-        headers: {'Authorization': 'Bearer $accessToken'},
-      );
-
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-
-        // Assuming 'data' is a list of courses
-        for (var courseJson in data) {
-          courseList.add(ConvertJSONCourse(courseJson));
-        }
-      } else {
-        printInternal('failed');
-      }
-    } catch (e) {
-      printInternal(e.toString());
-    }
-    return courseList;
-  }
-
-  Course ConvertJSONCourse(courseJson) {
-    Course course = new Course(
-        imageUrl: courseJson['poses'][0]['img_url_jpg'],
-        name: courseJson['title'],
-        description: courseJson['description'],
-        time: courseJson['duration'],
-        students: courseJson['difficulty']['difficulty_level'],
-        poses: convertJSONPoses(courseJson));
-    return course;
-  }
-
-  List<Pose> convertJSONPoses(courseJson) {
-    List<Pose> poses = courseJson['poses']
-        .map<Pose>((pose) => new Pose(
-            sanskrit_name: pose['sanskrit_name'],
-            english_name: pose['english_name'],
-            description: pose['description'],
-            benefits: pose['benefits'],
-            img_url_svg: pose['img_url_svg'],
-            img_url_jpg: pose['img_url_jpg'],
-            img_url_svg_alt: pose['img_url_svg_alt']))
-        .toList();
-    return poses;
-  }
+  Courses({required GetAllCoursesUseCase getAllCoursesUseCase})
+      : _getAllCoursesUseCase = getAllCoursesUseCase;
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +43,7 @@ class Courses extends StatelessWidget {
           ),
           Expanded(
             child: FutureBuilder<List<Course>>(
-              future: loadCourses(),
+              future: _getAllCoursesUseCase.call(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   // The scroll is still being written, show a loading indicator
