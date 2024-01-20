@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:yoga_training_app/core/constants/constants.dart';
 import 'package:yoga_training_app/core/log/print.dart';
 import 'package:yoga_training_app/domain/entities/course.dart';
-import 'package:yoga_training_app/core/constants/constants.dart';
 import 'package:yoga_training_app/domain/entities/pose.dart';
-import 'package:yoga_training_app/features/startup/presentation/pages/details_pose_screen.dart';
 import 'package:yoga_training_app/features/launched_session/presentation/pages/launchedSession.dart';
+import 'package:yoga_training_app/features/startup/presentation/pages/details_pose_screen.dart';
 
 class StartupCourse extends StatelessWidget {
   final Course _course;
@@ -81,7 +81,8 @@ class StartupCourse extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => LaunchedSession(course: _course)));
+                    builder: (context) =>
+                        LaunchedSessionScreen(course: _course)));
           },
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),

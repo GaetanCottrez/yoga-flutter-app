@@ -1,4 +1,4 @@
-import 'package:yoga_training_app/domain/repositories/course_repository.dart';
+import 'package:yoga_training_app/domain/repositories/course.repository.dart';
 import 'package:yoga_training_app/repositories/token.dart';
 import 'package:yoga_training_app/domain/data-sources/course.data-source.dart';
 import 'package:yoga_training_app/domain/entities/course.dart';

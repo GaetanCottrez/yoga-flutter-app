@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-import 'package:yoga_training_app/features/home/presentation/pages/home_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:yoga_training_app/core/db/localDb.dart';
+import 'package:yoga_training_app/core/log/print.dart';
+import 'package:yoga_training_app/features/home/presentation/pages/home_screen.dart';
 
 class Finish extends StatelessWidget {
   const Finish({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class Finish extends StatelessWidget {
                     height: 350,
                   ),
                   Text(
-                    "You have successfully completed this Yoga Pack!",
+                    "Vous avez terminé avec succès cette session",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -84,7 +85,7 @@ class Finish extends StatelessWidget {
                         width: MediaQuery.of(context).size.width - 70,
                         padding: const EdgeInsets.all(18.0),
                         child: Text(
-                          "DONE !",
+                          "Retour à l'accueil",
                           style: TextStyle(fontSize: 20),
                           textAlign: TextAlign.center,
                         ),
@@ -114,7 +115,7 @@ class Finish extends StatelessWidget {
 
 class UpdateFitnessModel with ChangeNotifier {
   UpdateFitnessModel() {
-    print("IT WORKS");
+    printInternal("IT WORKS");
     SetWorkoutTime();
     LastWorkOutDoneOn();
     SetMyKCAL(13);
@@ -123,25 +124,25 @@ class UpdateFitnessModel with ChangeNotifier {
   int a = 1;
 
   void SetWorkoutTime() async {
-    print("SetWorkoutTime");
+    printInternal("SetWorkoutTime");
     String? StartTime = await LocalDB.getStartTime();
     DateTime tempDate = new DateFormat("yyyy-MM-dd hh:mm:ss")
         .parse(StartTime ?? "2022-05-24 19:31:15.182");
     int difference = DateTime.now().difference(tempDate).inMinutes;
     int? mywotime = await LocalDB.getWorkOutTime();
-    print(mywotime);
+    printInternal(mywotime);
 // LocalDB.setWorkOutTime( mywotime! + 59);
     LocalDB.setWorkOutTime(mywotime! + difference);
   }
 
   void LastWorkOutDoneOn() async {
-    print("LAST WORKOUT DONE");
+    printInternal("LAST WORKOUT DONE");
 
     DateTime tempDate = new DateFormat("yyyy-MM-dd hh:mm:ss")
         .parse(await LocalDB.getLastDoneOn() ?? "2022-05-24 19:31:15.182");
     int difference = DateTime.now().difference(tempDate).inDays;
     if (difference == 0) {
-      print("GOOD JOB");
+      printInternal("GOOD JOB");
     } else {
       int? streaknow = await LocalDB.getStreak();
       LocalDB.setStreak(streaknow! + 1);
@@ -151,9 +152,9 @@ class UpdateFitnessModel with ChangeNotifier {
   }
 
   void SetMyKCAL(int myKCAL) async {
-    print("SetMyKCAL");
+    printInternal("SetMyKCAL");
     int? kcal = await LocalDB.getKcal();
-    print(kcal);
+    printInternal(kcal);
     LocalDB.setkcal(kcal.toString() == "null" ? 0 : kcal! + myKCAL);
   }
 //TODO: Set the initial value of streak and lastdone on in starting of app

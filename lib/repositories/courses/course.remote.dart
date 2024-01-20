@@ -1,9 +1,10 @@
 import 'dart:convert';
+
 import 'package:http/http.dart';
-import 'package:yoga_training_app/domain/entities/course.dart';
-import 'package:yoga_training_app/domain/data-sources/course.data-source.dart';
 import 'package:yoga_training_app/config/environment_config.dart';
 import 'package:yoga_training_app/core/log/print.dart';
+import 'package:yoga_training_app/domain/data-sources/course.data-source.dart';
+import 'package:yoga_training_app/domain/entities/course.dart';
 import 'package:yoga_training_app/domain/entities/pose.dart';
 import 'package:yoga_training_app/repositories/unauthorized.exception.dart';
 
@@ -26,7 +27,7 @@ class CourseRemoteDataSource implements ICourseDataSource {
 
         // Assuming 'data' is a list of courses
         for (var courseJson in data) {
-          courseList.add(ConvertJSONCourse(courseJson));
+          courseList.add(CourseRemoteDataSource.ConvertJSONCourse(courseJson));
         }
       } else if (response.statusCode == 401) {
         throw UnauthorizedException();
@@ -44,20 +45,22 @@ class CourseRemoteDataSource implements ICourseDataSource {
     return await this.getCourses(accessToken, 'session/difficulty/1');
   }
 
-  Course ConvertJSONCourse(courseJson) {
+  static Course ConvertJSONCourse(courseJson) {
     Course course = new Course(
+        id: courseJson['id'],
         imageUrl: courseJson['poses'][0]['img_url_jpg'],
         name: courseJson['title'],
         description: courseJson['description'],
         time: courseJson['duration'],
         students: courseJson['difficulty']['difficulty_level'],
-        poses: convertJSONPoses(courseJson));
+        poses: CourseRemoteDataSource.convertJSONPoses(courseJson));
     return course;
   }
 
-  List<Pose> convertJSONPoses(courseJson) {
+  static List<Pose> convertJSONPoses(courseJson) {
     List<Pose> poses = courseJson['poses']
         .map<Pose>((pose) => new Pose(
+            id: pose['id'],
             sanskrit_name: pose['sanskrit_name'],
             english_name: pose['english_name'],
             description: pose['description'],

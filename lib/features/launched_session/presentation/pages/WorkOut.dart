@@ -1,9 +1,12 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:yoga_training_app/domain/entities/pose.dart';
 import 'package:yoga_training_app/config/constant_config.dart';
+import 'package:yoga_training_app/core/constants/constants.dart';
 import 'package:yoga_training_app/core/db/localDb.dart';
+import 'package:yoga_training_app/domain/entities/pose.dart';
+
 import 'Break.dart';
 import 'Finish.dart';
 
@@ -52,7 +55,7 @@ class WorkOut extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               vertical: 10, horizontal: 25),
                           decoration: BoxDecoration(
-                              color: Colors.blueAccent,
+                              color: primary,
                               borderRadius: BorderRadius.circular(50)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -62,14 +65,14 @@ class WorkOut extends StatelessWidget {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 30,
-                                    color: Colors.white),
+                                    color: white),
                               ),
                               Text(
                                 " : ",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 30,
-                                    color: Colors.white),
+                                    color: white),
                               ),
                               Consumer<TimerModelSec>(
                                 builder: (context, myModel, child) {
@@ -80,7 +83,7 @@ class WorkOut extends StatelessWidget {
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 30,
-                                        color: Colors.white),
+                                        color: white),
                                   );
                                 },
                               )
@@ -114,7 +117,7 @@ class WorkOut extends StatelessWidget {
                             poseIndex != 0
                                 ? Consumer<TimerModelSec>(
                                     builder: (context, myModel, child) {
-                                    return TextButton(
+                                    return ElevatedButton(
                                         onPressed: () async {
                                           myModel.Pass();
                                           await Future.delayed(
@@ -129,16 +132,19 @@ class WorkOut extends StatelessWidget {
                                                               poseIndex - 1)));
                                           // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WorkOutDet(poses: poses, poseIndex: poseIndex-1)));
                                         },
-                                        child: Text(
-                                          "Previous",
-                                          style: const TextStyle(fontSize: 16),
-                                        ));
+                                        child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 10, horizontal: 15),
+                                            child: const Text(
+                                              "Précédent",
+                                              style: TextStyle(fontSize: 20),
+                                            )));
                                   })
                                 : Container(),
                             poseIndex != poses.length - 1
                                 ? Consumer<TimerModelSec>(
                                     builder: (context, myModel, child) {
-                                    return TextButton(
+                                    return ElevatedButton(
                                         onPressed: () async {
                                           myModel.Pass();
                                           await Future.delayed(
@@ -153,10 +159,13 @@ class WorkOut extends StatelessWidget {
                                                               poseIndex + 1)));
                                           // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WorkOutDet(poses: poses, poseIndex: poseIndex+1)));
                                         },
-                                        child: Text(
-                                          "Next",
-                                          style: TextStyle(fontSize: 16),
-                                        ));
+                                        child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 10, horizontal: 15),
+                                            child: const Text(
+                                              "Suivant",
+                                              style: TextStyle(fontSize: 20),
+                                            )));
                                   })
                                 : Container()
                           ],
@@ -171,7 +180,7 @@ class WorkOut extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 15),
                             child: Text(
-                              "Next: ${poseIndex >= poses.length - 1 ? "Finish" : poses[poseIndex + 1].english_name}",
+                              "Suivant: ${poseIndex >= poses.length - 1 ? "Terminer" : poses[poseIndex + 1].english_name}",
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
@@ -184,7 +193,7 @@ class WorkOut extends StatelessWidget {
                     return Visibility(
                         visible: myModel.visible,
                         child: Container(
-                          color: Colors.blueAccent.withOpacity(0.9),
+                          color: primary.withOpacity(0.9),
                           height: MediaQuery.of(context).size.height,
                           width: MediaQuery.of(context).size.width,
                           child: Column(
@@ -194,7 +203,7 @@ class WorkOut extends StatelessWidget {
                                 "Pause",
                                 style: TextStyle(
                                     fontSize: 40,
-                                    color: Colors.white,
+                                    color: white,
                                     fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
@@ -202,8 +211,7 @@ class WorkOut extends StatelessWidget {
                               ),
                               const Text(
                                 "Yoga feels better",
-                                style: TextStyle(
-                                    fontSize: 13, color: Colors.white),
+                                style: TextStyle(fontSize: 13, color: white),
                               ),
                               const SizedBox(
                                 height: 30,
@@ -221,8 +229,8 @@ class WorkOut extends StatelessWidget {
                                 child: const SizedBox(
                                   width: 180,
                                   child: Text(
-                                    "Restart",
-                                    style: TextStyle(color: Colors.white),
+                                    "Redémarrer",
+                                    style: TextStyle(color: white),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -234,8 +242,8 @@ class WorkOut extends StatelessWidget {
                                   child: Container(
                                     width: 180,
                                     child: Text(
-                                      "Quit",
-                                      style: TextStyle(color: Colors.white),
+                                      "Arrêter",
+                                      style: TextStyle(color: white),
                                       textAlign: TextAlign.center,
                                     ),
                                   )),
@@ -246,7 +254,7 @@ class WorkOut extends StatelessWidget {
                                 child: Container(
                                   width: 180,
                                   child: const Text(
-                                    "Resume",
+                                    "Continuer",
                                     textAlign: TextAlign.center,
                                   ),
                                 ),

@@ -1,4 +1,5 @@
 class Pose {
+  final int id;
   final String sanskrit_name;
   final String english_name;
   final String description;
@@ -8,7 +9,8 @@ class Pose {
   final String img_url_svg_alt;
 
   Pose(
-      {required this.sanskrit_name,
+      {required this.id,
+      required this.sanskrit_name,
       required this.english_name,
       required this.description,
       required this.benefits,

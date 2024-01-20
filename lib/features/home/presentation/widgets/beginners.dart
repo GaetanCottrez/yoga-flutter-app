@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
-import 'package:yoga_training_app/domain/use-cases/get_beginner_courses.dart';
 import 'package:yoga_training_app/domain/entities/course.dart';
-import 'package:yoga_training_app/repositories/unauthorized.exception.dart';
+import 'package:yoga_training_app/domain/use-cases/get_beginner_courses.dart';
 import 'package:yoga_training_app/features/login/presentation/pages/login_screen.dart';
+import 'package:yoga_training_app/features/startup/presentation/pages/startup_screen.dart';
+import 'package:yoga_training_app/repositories/unauthorized.exception.dart';
 
 class Beginners extends StatelessWidget {
   final GetBeginnerCoursesUseCase _getBeginnerCoursesUseCase;
@@ -11,7 +12,7 @@ class Beginners extends StatelessWidget {
   Beginners({required GetBeginnerCoursesUseCase getBeginnerCoursesUseCase})
       : _getBeginnerCoursesUseCase = getBeginnerCoursesUseCase;
 
-  Widget _buildStyles(BuildContext context, Course beginner) {
+  Widget _buildBeginner(BuildContext context, Course beginner) {
     Size size = MediaQuery.of(context).size;
 
     return Stack(
@@ -19,84 +20,91 @@ class Beginners extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: appPadding / 2),
-          child: Container(
-            margin:
-                EdgeInsets.only(top: appPadding * 3, bottom: appPadding * 2),
-            width: size.width * 0.4,
-            height: size.height * 0.2,
-            decoration: BoxDecoration(
-                color: white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20.0),
-                    bottomLeft: Radius.circular(20.0),
-                    bottomRight: Radius.circular(20.0),
-                    topRight: Radius.circular(100.0)),
-                boxShadow: [
-                  BoxShadow(
-                      color: black.withOpacity(0.3),
-                      blurRadius: 20.0,
-                      offset: Offset(5, 15))
-                ]),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: appPadding / 2,
-                      right: appPadding * 3,
-                      top: appPadding),
-                  child: Text(
-                    beginner.name,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+          child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => StartupScreen(course: beginner)));
+              },
+              child: Container(
+                margin: EdgeInsets.only(
+                    top: appPadding * 3, bottom: appPadding * 2),
+                width: size.width * 0.4,
+                height: size.height * 0.2,
+                decoration: BoxDecoration(
+                    color: white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        bottomLeft: Radius.circular(20.0),
+                        bottomRight: Radius.circular(20.0),
+                        topRight: Radius.circular(100.0)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: black.withOpacity(0.3),
+                          blurRadius: 20.0,
+                          offset: Offset(5, 15))
+                    ]),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: appPadding / 2,
+                          right: appPadding * 3,
+                          top: appPadding),
+                      child: Text(
+                        beginner.name,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 2,
+                      ),
                     ),
-                    maxLines: 2,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: appPadding / 2,
-                      right: appPadding / 2,
-                      bottom: appPadding),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: appPadding / 2,
+                          right: appPadding / 2,
+                          bottom: appPadding),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Icon(
-                            Icons.access_time_outlined,
-                            color: black.withOpacity(0.3),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.access_time_outlined,
+                                color: black.withOpacity(0.3),
+                              ),
+                              SizedBox(
+                                width: size.width * 0.01,
+                              ),
+                              Text(
+                                beginner.time.toString() + ' min',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: black.withOpacity(0.3)),
+                                maxLines: 2,
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                            width: size.width * 0.01,
-                          ),
-                          Text(
-                            beginner.time.toString() + ' min',
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: black.withOpacity(0.3)),
-                            maxLines: 2,
-                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: primary,
+                                borderRadius: BorderRadius.circular(5.0)),
+                            child: Icon(
+                              Icons.add,
+                              color: white,
+                            ),
+                          )
                         ],
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: primary,
-                            borderRadius: BorderRadius.circular(5.0)),
-                        child: Icon(
-                          Icons.add,
-                          color: white,
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
+                    )
+                  ],
+                ),
+              )),
         ),
         Positioned(
           right: 20,
@@ -174,7 +182,7 @@ class Beginners extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemCount: beginners.length > 5 ? 5 : beginners.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return _buildStyles(context, beginners[index]);
+                      return _buildBeginner(context, beginners[index]);
                     },
                   ),
                 );

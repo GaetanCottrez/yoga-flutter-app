@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:yoga_training_app/core/constants/constants.dart';
 import 'package:yoga_training_app/domain/entities/pose.dart';
 
 import 'WorkOut.dart';
@@ -26,7 +27,7 @@ class BreakTime extends StatelessWidget {
               return false;
             },
             child: Scaffold(
-                backgroundColor: Colors.blue,
+                backgroundColor: primary,
                 body: Stack(
                   children: [
                     Container(
@@ -41,7 +42,7 @@ class BreakTime extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 35,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                                color: white),
                           ),
                           Consumer<TimerModelSec>(
                             builder: (context, myModel, child) {
@@ -50,7 +51,7 @@ class BreakTime extends StatelessWidget {
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 65,
-                                    color: Colors.white),
+                                    color: white),
                               );
                             },
                           ),
@@ -60,22 +61,16 @@ class BreakTime extends StatelessWidget {
                           Consumer<TimerModelSec>(
                             builder: (context, myModel, child) {
                               return ElevatedButton(
-                                onPressed: () {
-                                  myModel.skip();
-                                },
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 24),
-                                  child: Text(
-                                    "SKIP",
-                                    style: TextStyle(
-                                        fontSize: 19, color: Colors.black),
-                                  ),
-                                ),
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
-                                        Colors.white)),
-                              );
+                                  onPressed: () {
+                                    myModel.skip();
+                                  },
+                                  child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 15),
+                                      child: const Text(
+                                        "Sauter",
+                                        style: TextStyle(fontSize: 20),
+                                      )));
                             },
                           ),
                           const Spacer(),
@@ -87,7 +82,7 @@ class BreakTime extends StatelessWidget {
                                 poseIndex != 0
                                     ? Consumer<TimerModelSec>(
                                         builder: (context, myModel, child) {
-                                        return TextButton(
+                                        return ElevatedButton(
                                             onPressed: () async {
                                               myModel.Pass();
                                               await Future.delayed(
@@ -103,21 +98,24 @@ class BreakTime extends StatelessWidget {
                                                                       1)));
                                               // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WorkOutDet(poses: poses, poseIndex: poseIndex-1)));
                                             },
-                                            child: const Text(
-                                              "Previous",
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.white),
-                                            ));
+                                            child: Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 10,
+                                                        horizontal: 15),
+                                                child: const Text(
+                                                  "Précédent",
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                )));
                                       })
                                     : Container(),
                                 poseIndex != poses.length - 1
                                     ? Consumer<TimerModelSec>(
                                         builder: (context, myModel, child) {
-                                        return TextButton(
+                                        return ElevatedButton(
                                             onPressed: () async {
                                               myModel.Pass();
-
                                               await Future.delayed(
                                                   const Duration(seconds: 1));
                                               Navigator.pushReplacement(
@@ -131,12 +129,16 @@ class BreakTime extends StatelessWidget {
                                                                       1)));
                                               // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WorkOutDet(poses: poses, poseIndex: poseIndex+1)));
                                             },
-                                            child: const Text(
-                                              "Next",
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.white),
-                                            ));
+                                            child: Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 10,
+                                                        horizontal: 15),
+                                                child: const Text(
+                                                  "Suivant",
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                )));
                                       })
                                     : Container()
                               ],
@@ -151,11 +153,11 @@ class BreakTime extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 15),
                                 child: Text(
-                                  "Next: ${poseIndex >= poses.length - 1 ? "FINISH" : poses[poseIndex].english_name}",
+                                  "Suivant: ${poseIndex >= poses.length - 1 ? "Terminer" : poses[poseIndex].english_name}",
                                   style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                                      color: white),
                                 ),
                               )),
                         ],
@@ -166,7 +168,7 @@ class BreakTime extends StatelessWidget {
                         return Visibility(
                             visible: myModel.visible,
                             child: Container(
-                              color: Colors.blueAccent.withOpacity(0.9),
+                              color: primary.withOpacity(0.9),
                               height: MediaQuery.of(context).size.height,
                               width: MediaQuery.of(context).size.width,
                               child: Column(
@@ -176,7 +178,7 @@ class BreakTime extends StatelessWidget {
                                     "Pause",
                                     style: TextStyle(
                                         fontSize: 40,
-                                        color: Colors.white,
+                                        color: white,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   const SizedBox(
@@ -184,8 +186,8 @@ class BreakTime extends StatelessWidget {
                                   ),
                                   const Text(
                                     "Yoga feels better",
-                                    style: TextStyle(
-                                        fontSize: 13, color: Colors.white),
+                                    style:
+                                        TextStyle(fontSize: 13, color: white),
                                   ),
                                   const SizedBox(
                                     height: 30,
@@ -203,8 +205,8 @@ class BreakTime extends StatelessWidget {
                                     child: const SizedBox(
                                       width: 180,
                                       child: Text(
-                                        "Restart",
-                                        style: TextStyle(color: Colors.white),
+                                        "Redémarrer",
+                                        style: TextStyle(color: white),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
@@ -216,8 +218,8 @@ class BreakTime extends StatelessWidget {
                                       child: Container(
                                         width: 180,
                                         child: Text(
-                                          "Quit",
-                                          style: TextStyle(color: Colors.white),
+                                          "Quitter",
+                                          style: TextStyle(color: white),
                                           textAlign: TextAlign.center,
                                         ),
                                       )),
@@ -228,14 +230,13 @@ class BreakTime extends StatelessWidget {
                                     child: Container(
                                       width: 180,
                                       child: const Text(
-                                        "Resume",
+                                        "Continuer",
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                     style: ButtonStyle(
                                         backgroundColor:
-                                            MaterialStateProperty.all(
-                                                Colors.white)),
+                                            MaterialStateProperty.all(white)),
                                   )
                                 ],
                               ),
