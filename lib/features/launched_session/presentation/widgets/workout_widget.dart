@@ -7,8 +7,8 @@ import 'package:yoga_training_app/core/constants/constants.dart';
 import 'package:yoga_training_app/core/db/localDb.dart';
 import 'package:yoga_training_app/core/log/print.dart';
 import 'package:yoga_training_app/domain/entities/pose.dart';
+import 'package:yoga_training_app/features/launched_session/presentation/pages/breaktime_screen.dart';
 import 'package:yoga_training_app/features/launched_session/presentation/pages/finish_screen.dart';
-import 'package:yoga_training_app/features/launched_session/presentation/widgets/break_widget.dart';
 
 class WorkOut extends StatelessWidget {
   List<Pose> poses;
@@ -130,7 +130,7 @@ class WorkOut extends StatelessWidget {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      BreakTime(
+                                                      BreakTimeScreen(
                                                           courseId: courseId,
                                                           courseName:
                                                               courseName,
@@ -160,7 +160,7 @@ class WorkOut extends StatelessWidget {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      BreakTime(
+                                                      BreakTimeScreen(
                                                           courseId: courseId,
                                                           courseName:
                                                               courseName,
@@ -337,7 +337,7 @@ class TimerModelSec with ChangeNotifier {
             : Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => BreakTime(
+                    builder: (context) => BreakTimeScreen(
                         poses: poses,
                         poseIndex: poseIndex,
                         courseId: courseId,
