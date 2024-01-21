@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yoga_training_app/domain/entities/pose.dart';
+import 'package:yoga_training_app/features/launched_session/presentation/manager/timer_model_sec.dart';
+import 'package:yoga_training_app/features/launched_session/presentation/pages/workout_screen.dart';
 import 'package:yoga_training_app/features/launched_session/presentation/widgets/breaktime_widget.dart';
-import 'package:yoga_training_app/features/launched_session/presentation/widgets/workout_widget.dart';
 
 class BreakTimeScreen extends StatelessWidget {
   List<Pose> poses;
@@ -41,16 +42,13 @@ class BreakTimeScreen extends StatelessWidget {
   }
 }
 
-class BreaktimeTimerModelSec with ChangeNotifier {
+class BreaktimeTimerModelSec extends AbstractTimerModelSec {
   BreaktimeTimerModelSec(context, List<Pose> poses, int poseIndex,
       String courseName, int courseId) {
     MyTimerSec(context, poses, poseIndex, courseName, courseId);
   }
 
   int countdown = 10;
-  bool isPassed = false;
-  bool visible = false;
-  bool Isskip = false;
 
   MyTimerSec(context, List<Pose> poses, int poseIndex, String courseName,
       int courseId) async {
@@ -62,7 +60,7 @@ class BreaktimeTimerModelSec with ChangeNotifier {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => WorkOut(
+                builder: (context) => WorkOutScreen(
                       poses: poses,
                       poseIndex: poseIndex,
                       courseId: courseId,
@@ -72,25 +70,5 @@ class BreaktimeTimerModelSec with ChangeNotifier {
         timer.cancel();
       }
     });
-  }
-
-  void skip() {
-    Isskip = true;
-    notifyListeners();
-  }
-
-  void show() {
-    visible = true;
-    notifyListeners();
-  }
-
-  void hide() {
-    visible = false;
-    notifyListeners();
-  }
-
-  void Pass() {
-    isPassed = true;
-    notifyListeners();
   }
 }

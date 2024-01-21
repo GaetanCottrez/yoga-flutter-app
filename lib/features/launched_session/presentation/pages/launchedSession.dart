@@ -8,7 +8,7 @@ import 'package:yoga_training_app/domain/entities/course.dart';
 import 'package:yoga_training_app/domain/entities/launched-session.dart';
 import 'package:yoga_training_app/domain/entities/pose.dart';
 import 'package:yoga_training_app/domain/use-cases/start_launched_session.dart';
-import 'package:yoga_training_app/features/launched_session/presentation/widgets/workout_widget.dart';
+import 'package:yoga_training_app/features/launched_session/presentation/pages/workout_screen.dart';
 import 'package:yoga_training_app/injections/course.injection.dart';
 
 class LaunchedSessionScreen extends StatelessWidget {
@@ -128,7 +128,7 @@ class TimerModel with ChangeNotifier {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => WorkOut(
+                builder: (context) => WorkOutScreen(
                       poses: poses,
                       courseName: course.name,
                       courseId: course.id,

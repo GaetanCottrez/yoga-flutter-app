@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yoga_training_app/config/constant_config.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
-import 'package:yoga_training_app/core/db/localDb.dart';
-import 'package:yoga_training_app/core/log/print.dart';
 import 'package:yoga_training_app/domain/entities/pose.dart';
+import 'package:yoga_training_app/features/launched_session/presentation/manager/timer_model_sec.dart';
 import 'package:yoga_training_app/features/launched_session/presentation/pages/breaktime_screen.dart';
 import 'package:yoga_training_app/features/launched_session/presentation/pages/finish_screen.dart';
+import 'package:yoga_training_app/features/launched_session/presentation/widgets/bottom_divider_widget.dart';
+import 'package:yoga_training_app/features/launched_session/presentation/widgets/next_pose_widget.dart';
+import 'package:yoga_training_app/features/launched_session/presentation/widgets/pause_widget.dart';
 
-class WorkOut extends StatelessWidget {
+class WorkOutScreen extends StatelessWidget {
   List<Pose> poses;
   int poseIndex;
   String courseName;
@@ -18,7 +20,7 @@ class WorkOut extends StatelessWidget {
 
   final int durationPose = ConstantConfig().durationPose;
 
-  WorkOut({
+  WorkOutScreen({
     required this.poses,
     required this.poseIndex,
     required this.courseName,
@@ -27,10 +29,10 @@ class WorkOut extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<TimerModelSec>(
-      create: (context) => TimerModelSec(
+    return ChangeNotifierProvider<WorkOutTimerModelSec>(
+      create: (context) => WorkOutTimerModelSec(
           context, poses, poseIndex + 1, durationPose, courseName, courseId),
-      child: Consumer<TimerModelSec>(builder: (context, myModel, child) {
+      child: Consumer<WorkOutTimerModelSec>(builder: (context, myModel, child) {
         return WillPopScope(
           onWillPop: () async {
             myModel.show();
@@ -78,7 +80,7 @@ class WorkOut extends StatelessWidget {
                                     fontSize: 30,
                                     color: white),
                               ),
-                              Consumer<TimerModelSec>(
+                              Consumer<WorkOutTimerModelSec>(
                                 builder: (context, myModel, child) {
                                   return Text(
                                     myModel.countdown.toString().length == 1
@@ -97,7 +99,7 @@ class WorkOut extends StatelessWidget {
                       SizedBox(
                         height: 30,
                       ),
-                      Consumer<TimerModelSec>(
+                      Consumer<WorkOutTimerModelSec>(
                         builder: (context, myModel, child) {
                           return ElevatedButton(
                               onPressed: () {
@@ -119,7 +121,7 @@ class WorkOut extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             poseIndex != 0
-                                ? Consumer<TimerModelSec>(
+                                ? Consumer<WorkOutTimerModelSec>(
                                     builder: (context, myModel, child) {
                                     return ElevatedButton(
                                         onPressed: () async {
@@ -149,7 +151,7 @@ class WorkOut extends StatelessWidget {
                                   })
                                 : Container(),
                             poseIndex != poses.length - 1
-                                ? Consumer<TimerModelSec>(
+                                ? Consumer<WorkOutTimerModelSec>(
                                     builder: (context, myModel, child) {
                                     return ElevatedButton(
                                         onPressed: () async {
@@ -181,102 +183,31 @@ class WorkOut extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Divider(
-                        thickness: 2,
-                      ),
-                      Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 15),
-                            child: Text(
-                              "Suivant: ${poseIndex >= poses.length - 1 ? "Terminer" : poses[poseIndex + 1].english_name}",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                          ))
+                      const BottomDivider(),
+                      NextPoseText(poses: poses, poseIndex: poseIndex),
                     ],
                   ),
                 ),
-                Consumer<TimerModelSec>(
+                Consumer<WorkOutTimerModelSec>(
                   builder: (context, myModel, child) {
-                    return Visibility(
-                        visible: myModel.visible,
-                        child: Container(
-                          color: primary.withOpacity(0.9),
-                          height: MediaQuery.of(context).size.height,
-                          width: MediaQuery.of(context).size.width,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                "Pause",
-                                style: TextStyle(
-                                    fontSize: 40,
-                                    color: white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              const Text(
-                                "Yoga feels better",
-                                style: TextStyle(fontSize: 13, color: white),
-                              ),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              OutlinedButton(
-                                onPressed: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => WorkOut(
-                                                poses: poses,
-                                                poseIndex: 0,
-                                                courseId: courseId,
-                                                courseName: courseName,
-                                              )));
-                                },
-                                child: const SizedBox(
-                                  width: 180,
-                                  child: Text(
-                                    "Redémarrer",
-                                    style: TextStyle(color: white),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                              OutlinedButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Container(
-                                    width: 180,
-                                    child: Text(
-                                      "Arrêter",
-                                      style: TextStyle(color: white),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  )),
-                              OutlinedButton(
-                                onPressed: () {
-                                  myModel.hide();
-                                },
-                                child: Container(
-                                  width: 180,
-                                  child: const Text(
-                                    "Continuer",
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
-                                        Colors.white)),
-                              )
-                            ],
+                    return PauseOverlay(
+                      isVisible: myModel.visible,
+                      onRestart: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => WorkOutScreen(
+                              poses: poses,
+                              poseIndex: 0,
+                              courseId: courseId,
+                              courseName: courseName,
+                            ),
                           ),
-                        ));
+                        );
+                      },
+                      onQuit: () => Navigator.pop(context),
+                      onContinue: myModel.hide,
+                    );
                   },
                 )
               ],
@@ -288,25 +219,16 @@ class WorkOut extends StatelessWidget {
   }
 }
 
-class TimerModelSec with ChangeNotifier {
-  TimerModelSec(context, List<Pose> poses, int poseIndex, int countdown,
+class WorkOutTimerModelSec extends AbstractTimerModelSec {
+  WorkOutTimerModelSec(context, List<Pose> poses, int poseIndex, int countdown,
       String courseName, int courseId) {
     setCDownValue(countdown);
     CheckIfLast(poseIndex >= poses.length - 1);
     MyTimerSec(context, poses, poseIndex, courseName, courseId);
-    ReadTime(poseIndex);
   }
 
   int countdown = 0;
   bool isLast = false;
-
-  void ReadTime(int poseIndex) {
-    printInternal(poseIndex);
-    if (poseIndex == 1) {
-      String now = DateTime.now().toString();
-      LocalDB.setStartTime(now);
-    }
-  }
 
   void CheckIfLast(bool Ans) {
     isLast = Ans;
@@ -346,20 +268,5 @@ class TimerModelSec with ChangeNotifier {
         timer.cancel();
       }
     });
-  }
-
-  void show() {
-    visible = true;
-    notifyListeners();
-  }
-
-  void Pass() {
-    isPassed = true;
-    notifyListeners();
-  }
-
-  void hide() {
-    visible = false;
-    notifyListeners();
   }
 }
