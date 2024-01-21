@@ -13,6 +13,8 @@ class LaunchedSessionRemoteDataSource implements ILaunchedSessionDataSource {
   Future<LaunchedSession?> activeSession(String accessToken) async {
     LaunchedSession? launchedSession;
     try {
+      printInternal(
+          Uri.parse(EnvironmentConfig.getBaseUrl() + 'user/session/active'));
       Response response = await get(
         Uri.parse(EnvironmentConfig.getBaseUrl() + 'user/session/active'),
         headers: {'Authorization': 'Bearer $accessToken'},
@@ -61,7 +63,7 @@ class LaunchedSessionRemoteDataSource implements ILaunchedSessionDataSource {
         headers: {'Authorization': 'Bearer $accessToken'},
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         var data = jsonDecode(response.body);
         launchedSession = new LaunchedSession(
             start_date: DateTime.parse(data['start_date']),

@@ -5,27 +5,31 @@ import 'package:provider/provider.dart';
 import 'package:yoga_training_app/config/constant_config.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
 import 'package:yoga_training_app/core/db/localDb.dart';
+import 'package:yoga_training_app/core/log/print.dart';
 import 'package:yoga_training_app/domain/entities/pose.dart';
-
-import 'Break.dart';
-import 'Finish.dart';
+import 'package:yoga_training_app/features/launched_session/presentation/pages/finish_screen.dart';
+import 'package:yoga_training_app/features/launched_session/presentation/widgets/break_widget.dart';
 
 class WorkOut extends StatelessWidget {
   List<Pose> poses;
   int poseIndex;
+  String courseName;
+  int courseId;
 
   final int durationPose = ConstantConfig().durationPose;
 
   WorkOut({
     required this.poses,
     required this.poseIndex,
+    required this.courseName,
+    required this.courseId,
   });
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<TimerModelSec>(
-      create: (context) =>
-          TimerModelSec(context, poses, poseIndex + 1, durationPose),
+      create: (context) => TimerModelSec(
+          context, poses, poseIndex + 1, durationPose, courseName, courseId),
       child: Consumer<TimerModelSec>(builder: (context, myModel, child) {
         return WillPopScope(
           onWillPop: () async {
@@ -127,6 +131,9 @@ class WorkOut extends StatelessWidget {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       BreakTime(
+                                                          courseId: courseId,
+                                                          courseName:
+                                                              courseName,
                                                           poses: poses,
                                                           poseIndex:
                                                               poseIndex - 1)));
@@ -154,6 +161,9 @@ class WorkOut extends StatelessWidget {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       BreakTime(
+                                                          courseId: courseId,
+                                                          courseName:
+                                                              courseName,
                                                           poses: poses,
                                                           poseIndex:
                                                               poseIndex + 1)));
@@ -224,6 +234,8 @@ class WorkOut extends StatelessWidget {
                                           builder: (context) => WorkOut(
                                                 poses: poses,
                                                 poseIndex: 0,
+                                                courseId: courseId,
+                                                courseName: courseName,
                                               )));
                                 },
                                 child: const SizedBox(
@@ -277,10 +289,11 @@ class WorkOut extends StatelessWidget {
 }
 
 class TimerModelSec with ChangeNotifier {
-  TimerModelSec(context, List<Pose> poses, int poseIndex, int countdown) {
+  TimerModelSec(context, List<Pose> poses, int poseIndex, int countdown,
+      String courseName, int courseId) {
     setCDownValue(countdown);
     CheckIfLast(poseIndex >= poses.length - 1);
-    MyTimerSec(context, poses, poseIndex);
+    MyTimerSec(context, poses, poseIndex, courseName, courseId);
     ReadTime(poseIndex);
   }
 
@@ -288,7 +301,7 @@ class TimerModelSec with ChangeNotifier {
   bool isLast = false;
 
   void ReadTime(int poseIndex) {
-    print(poseIndex);
+    printInternal(poseIndex);
     if (poseIndex == 1) {
       String now = DateTime.now().toString();
       LocalDB.setStartTime(now);
@@ -306,7 +319,8 @@ class TimerModelSec with ChangeNotifier {
   bool visible = false;
   bool isPassed = false;
 
-  MyTimerSec(context, List<Pose> poses, int poseIndex) async {
+  MyTimerSec(context, List<Pose> poses, int poseIndex, String courseName,
+      int courseId) async {
     Timer.periodic(Duration(seconds: 1), (timer) async {
       visible ? countdown + 0 : countdown--;
       notifyListeners();
@@ -314,12 +328,20 @@ class TimerModelSec with ChangeNotifier {
         timer.cancel();
         isLast
             ? Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => Finish()))
+                context,
+                MaterialPageRoute(
+                    builder: (context) => FinishScreen(
+                          courseId: courseId,
+                          courseName: courseName,
+                        )))
             : Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        BreakTime(poses: poses, poseIndex: poseIndex)));
+                    builder: (context) => BreakTime(
+                        poses: poses,
+                        poseIndex: poseIndex,
+                        courseId: courseId,
+                        courseName: courseName)));
       } else if (isPassed) {
         timer.cancel();
       }

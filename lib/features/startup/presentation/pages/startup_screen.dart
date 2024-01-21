@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:yoga_training_app/core/log/print.dart';
-import 'package:yoga_training_app/features/home/presentation/widgets/custom_app_bar.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
+import 'package:yoga_training_app/core/log/print.dart';
 import 'package:yoga_training_app/domain/entities/course.dart';
+import 'package:yoga_training_app/features/home/presentation/widgets/custom_app_bar.dart';
 import 'package:yoga_training_app/features/startup/presentation//widgets/startup_course.dart';
 import 'package:yoga_training_app/shared/curved_navigation_bar_builder.dart';
 
@@ -35,11 +35,7 @@ class _StartupScreenState extends State<StartupScreen> {
       ),
       bottomNavigationBar: CurvedNavigationBarBuilder(
         selectedIndex: selectedIconIndex,
-        onNavigationTap: (index) {
-          setState(() {
-            selectedIconIndex = index;
-          });
-        },
+        indexChanged: (int) {},
       ),
     );
   }

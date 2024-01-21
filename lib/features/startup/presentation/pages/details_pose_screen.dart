@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:yoga_training_app/core/log/print.dart';
-import 'package:yoga_training_app/features/home/presentation/widgets/custom_app_bar.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
+import 'package:yoga_training_app/core/log/print.dart';
 import 'package:yoga_training_app/domain/entities/pose.dart';
+import 'package:yoga_training_app/features/home/presentation/widgets/custom_app_bar.dart';
 import 'package:yoga_training_app/features/startup/presentation/widgets/details_pose.dart';
 import 'package:yoga_training_app/shared/curved_navigation_bar_builder.dart';
 
@@ -35,11 +35,7 @@ class _DetailsPoseScreenState extends State<DetailsPoseScreen> {
       ),
       bottomNavigationBar: CurvedNavigationBarBuilder(
         selectedIndex: selectedIconIndex,
-        onNavigationTap: (index) {
-          setState(() {
-            selectedIconIndex = index;
-          });
-        },
+        indexChanged: (int) {},
       ),
     );
   }

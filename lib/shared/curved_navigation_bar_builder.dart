@@ -1,16 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-
+import 'package:flutter/material.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
 
 class CurvedNavigationBarBuilder extends StatelessWidget {
   final int selectedIndex;
-  final Function(int) onNavigationTap;
+  final Function(int) indexChanged;
 
   const CurvedNavigationBarBuilder({
     Key? key,
     required this.selectedIndex,
-    required this.onNavigationTap,
+    required this.indexChanged,
   }) : super(key: key);
 
   @override
@@ -21,7 +20,11 @@ class CurvedNavigationBarBuilder extends StatelessWidget {
       buttonBackgroundColor: primary,
       height: 60.0,
       color: white,
-      onTap: onNavigationTap,
+      onTap: (index) {
+        indexChanged(index); // Handler pour le changement d'index
+        _handleNavigationTap(
+            context, index); // Appel de la fonction de navigation
+      },
       animationDuration: Duration(
         milliseconds: 200,
       ),
@@ -53,5 +56,26 @@ class CurvedNavigationBarBuilder extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _handleNavigationTap(BuildContext context, int index) {
+    switch (index) {
+      case 1:
+        Navigator.pushNamed(
+            context, '/search'); // Remplacez par votre route pour search
+        break;
+      case 2:
+        /*Navigator.pushNamed(
+            context, '/home');*/
+        break;
+      case 3:
+        /*Navigator.pushNamed(
+            context, '/favorites');*/
+        break;
+      case 4:
+        /*Navigator.pushNamed(
+            context, '/profile');*/
+        break;
+    }
   }
 }

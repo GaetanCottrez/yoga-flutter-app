@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yoga_training_app/config/constant_config.dart';
 import 'package:yoga_training_app/domain/entities/course.dart';
+import 'package:yoga_training_app/domain/entities/launched-session.dart';
 import 'package:yoga_training_app/domain/entities/pose.dart';
-
-import 'WorkOut.dart';
+import 'package:yoga_training_app/domain/use-cases/start_launched_session.dart';
+import 'package:yoga_training_app/features/launched_session/presentation/widgets/workout_widget.dart';
+import 'package:yoga_training_app/injections/course.injection.dart';
 
 class LaunchedSessionScreen extends StatelessWidget {
   Course course;
@@ -29,6 +31,9 @@ class LaunchedSessionScreen extends StatelessWidget {
     'Yoga helps you manage stress.'
   ];
 
+  StartLaunchedSessionUseCase startLaunchedSessionUseCase =
+      InjectionContainer.provideStartLaunchedSessionUseCase();
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<TimerModel>(
@@ -43,9 +48,22 @@ class LaunchedSessionScreen extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 2 - 100,
                 ),
-                Text(
-                  "ARE YOU READY?",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                FutureBuilder<LaunchedSession>(
+                  future: startLaunchedSessionUseCase.call(course.id),
+                  // Call the use case.
+                  builder: (BuildContext context,
+                      AsyncSnapshot<LaunchedSession> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    }
+                    return Text(
+                      "ETES-VOUS PRET ?",
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    );
+                  },
                 ),
                 SizedBox(
                   height: 40,
@@ -102,6 +120,8 @@ class TimerModel with ChangeNotifier {
             MaterialPageRoute(
                 builder: (context) => WorkOut(
                       poses: poses,
+                      courseName: course.name,
+                      courseId: course.id,
                       poseIndex: 0,
                     )));
       }

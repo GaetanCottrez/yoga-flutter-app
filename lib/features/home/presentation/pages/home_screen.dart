@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
+import 'package:yoga_training_app/core/log/print.dart';
 import 'package:yoga_training_app/domain/entities/course.dart';
 import 'package:yoga_training_app/domain/entities/launched-session.dart';
 import 'package:yoga_training_app/domain/use-cases/get_all_courses.dart';
@@ -65,16 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: CurvedNavigationBarBuilder(
         selectedIndex: selectedIconIndex,
-        onNavigationTap: (index) {
-          setState(() {
-            selectedIconIndex = index;
-          });
-        },
+        indexChanged: (int) {},
       ),
     );
   }
 
   void _maybeShowDialog(LaunchedSession? launchedSession) {
+    printInternal('_maybeShowDialog');
+    printInternal(launchedSession?.session);
     if (launchedSession?.session != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         showDialog(

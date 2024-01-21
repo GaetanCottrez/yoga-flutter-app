@@ -5,21 +5,26 @@ import 'package:provider/provider.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
 import 'package:yoga_training_app/domain/entities/pose.dart';
 
-import 'WorkOut.dart';
+import 'workout_widget.dart';
 
 class BreakTime extends StatelessWidget {
   List<Pose> poses;
   int poseIndex;
+  String courseName;
+  int courseId;
 
   BreakTime({
     required this.poses,
     required this.poseIndex,
+    required this.courseName,
+    required this.courseId,
   });
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<TimerModelSec>(
-        create: (context) => TimerModelSec(context, poses, poseIndex),
+        create: (context) =>
+            TimerModelSec(context, poses, poseIndex, courseName, courseId),
         child: Consumer<TimerModelSec>(builder: (context, myModel, mychild) {
           return WillPopScope(
             onWillPop: () async {
@@ -92,6 +97,10 @@ class BreakTime extends StatelessWidget {
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                           BreakTime(
+                                                              courseId:
+                                                                  courseId,
+                                                              courseName:
+                                                                  courseName,
                                                               poses: poses,
                                                               poseIndex:
                                                                   poseIndex -
@@ -123,6 +132,10 @@ class BreakTime extends StatelessWidget {
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                           BreakTime(
+                                                              courseId:
+                                                                  courseId,
+                                                              courseName:
+                                                                  courseName,
                                                               poses: poses,
                                                               poseIndex:
                                                                   poseIndex +
@@ -200,6 +213,8 @@ class BreakTime extends StatelessWidget {
                                               builder: (context) => WorkOut(
                                                     poses: poses,
                                                     poseIndex: 0,
+                                                    courseId: courseId,
+                                                    courseName: courseName,
                                                   )));
                                     },
                                     child: const SizedBox(
@@ -251,8 +266,9 @@ class BreakTime extends StatelessWidget {
 }
 
 class TimerModelSec with ChangeNotifier {
-  TimerModelSec(context, List<Pose> poses, int poseIndex) {
-    MyTimerSec(context, poses, poseIndex);
+  TimerModelSec(context, List<Pose> poses, int poseIndex, String courseName,
+      int courseId) {
+    MyTimerSec(context, poses, poseIndex, courseName, courseId);
   }
 
   int countdown = 10;
@@ -260,7 +276,8 @@ class TimerModelSec with ChangeNotifier {
   bool visible = false;
   bool Isskip = false;
 
-  MyTimerSec(context, List<Pose> poses, int poseIndex) async {
+  MyTimerSec(context, List<Pose> poses, int poseIndex, String courseName,
+      int courseId) async {
     Timer.periodic(const Duration(seconds: 1), (timer) {
       visible ? countdown + 0 : countdown--;
       notifyListeners();
@@ -272,6 +289,8 @@ class TimerModelSec with ChangeNotifier {
                 builder: (context) => WorkOut(
                       poses: poses,
                       poseIndex: poseIndex,
+                      courseId: courseId,
+                      courseName: courseName,
                     )));
       } else if (isPassed) {
         timer.cancel();
