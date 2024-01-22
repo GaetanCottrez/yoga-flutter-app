@@ -9,8 +9,9 @@ import 'package:yoga_training_app/features/startup/presentation/pages/startup_sc
 class Courses extends StatelessWidget {
   final GetAllCoursesUseCase _getAllCoursesUseCase;
 
-  Courses({required GetAllCoursesUseCase getAllCoursesUseCase})
-      : _getAllCoursesUseCase = getAllCoursesUseCase;
+  const Courses({Key? key, required GetAllCoursesUseCase getAllCoursesUseCase})
+      : _getAllCoursesUseCase = getAllCoursesUseCase,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +22,8 @@ class Courses extends StatelessWidget {
         // Update your UI with the courses
       } on UnauthorizedException catch (_) {
         // Navigate to LoginScreen if unauthorized
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
       }
       return courses;
     }
@@ -31,8 +32,8 @@ class Courses extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
+          const Padding(
+            padding: EdgeInsets.symmetric(
               horizontal: appPadding,
             ),
             child: Row(
@@ -62,15 +63,15 @@ class Courses extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   // The scroll is still being written, show a loading indicator
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   // The ink has spilled, let’s display an error
-                  return Center(child: Text('Error loading courses'));
+                  return const Center(child: Text('Error loading courses'));
                 } else if (snapshot.hasData) {
                   // The scroll is ready to be revealed
                   List<Course> courses = snapshot.data!.take(5).toList();
                   return ListView.builder(
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     itemCount: courses.length,
                     itemBuilder: (context, index) {
                       return _buildCourses(context, courses[index]);
@@ -78,7 +79,7 @@ class Courses extends StatelessWidget {
                   );
                 } else {
                   // The scroll is blank, no courses found
-                  return Center(child: Text('No courses found'));
+                  return const Center(child: Text('No courses found'));
                 }
               },
             ),
@@ -102,7 +103,7 @@ class Courses extends StatelessWidget {
               BoxShadow(
                   color: black.withOpacity(0.3),
                   blurRadius: 30.0,
-                  offset: Offset(10, 15))
+                  offset: const Offset(10, 15))
             ]),
         child: Padding(
           padding: const EdgeInsets.all(appPadding),
@@ -115,14 +116,14 @@ class Courses extends StatelessWidget {
             },
             child: Row(
               children: [
-                Container(
+                SizedBox(
                   width: size.width * 0.3,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20.0),
                     child: Image.network(course.imageUrl),
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: size.width * 0.5,
                   child: Padding(
                     padding: const EdgeInsets.only(
@@ -133,13 +134,13 @@ class Courses extends StatelessWidget {
                         Row(children: [
                           Text(
                             course.name,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
                             ),
                             maxLines: 2,
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Icon(
                             Icons.arrow_right_alt_rounded,
                             color: black.withOpacity(0.3),
@@ -178,7 +179,7 @@ class Courses extends StatelessWidget {
                               width: size.width * 0.01,
                             ),
                             Text(
-                              course.time.toString() + ' min',
+                              '${course.time} min',
                               style: TextStyle(
                                 color: black.withOpacity(0.3),
                               ),

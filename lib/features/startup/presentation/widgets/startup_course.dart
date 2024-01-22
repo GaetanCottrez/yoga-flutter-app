@@ -9,7 +9,7 @@ import 'package:yoga_training_app/features/startup/presentation/pages/details_po
 class StartupCourse extends StatelessWidget {
   final Course _course;
 
-  StartupCourse(this._course);
+  const StartupCourse(this._course, {Key? key}) : super(key: key);
 
   Future<Course> getCourse() async {
     return _course;
@@ -25,22 +25,22 @@ class StartupCourse extends StatelessWidget {
           displayCourseTimeAndDifficulty(),
           displayCourseImg(),
           displayCourseDescription(),
-          ButtonStartup(context),
+          buttonStartup(context),
           Expanded(
             child: FutureBuilder<Course>(
-              future: this.getCourse(),
+              future: getCourse(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   // The scroll is still being written, show a loading indicator
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   // The ink has spilled, let’s display an error
-                  return Center(child: Text('Error loading course'));
+                  return const Center(child: Text('Error loading course'));
                 } else if (snapshot.hasData) {
                   // The scroll is ready to be revealed
                   List<Pose> poses = snapshot.data!.poses.toList();
                   return ListView.builder(
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     itemCount: poses.length,
                     itemBuilder: (context, index) {
                       return _buildPoses(context, poses[index]);
@@ -48,7 +48,7 @@ class StartupCourse extends StatelessWidget {
                   );
                 } else {
                   // The scroll is blank, no courses found
-                  return Center(child: Text('No course found'));
+                  return const Center(child: Text('No course found'));
                 }
               },
             ),
@@ -58,7 +58,7 @@ class StartupCourse extends StatelessWidget {
     );
   }
 
-  Padding ButtonStartup(BuildContext context) {
+  Padding buttonStartup(BuildContext context) {
     return Padding(
         padding:
             const EdgeInsets.symmetric(horizontal: appPadding, vertical: 5),
@@ -85,16 +85,16 @@ class StartupCourse extends StatelessWidget {
                         LaunchedSessionScreen(course: _course)));
           },
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               // This will keep our Row nice and snug, only as wide as its contents.
               children: [
-                Text(
+                const Text(
                   "DEMARRER",
                   style: TextStyle(fontSize: 20),
                 ),
-                SizedBox(width: 4),
+                const SizedBox(width: 4),
                 // A breath of space between the text and the icon
                 Icon(
                   Icons.play_arrow,
@@ -112,7 +112,7 @@ class StartupCourse extends StatelessWidget {
             const EdgeInsets.symmetric(horizontal: appPadding, vertical: 10),
         child: Text(
           _course.description,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w300,
             letterSpacing: 1.5,
@@ -138,14 +138,14 @@ class StartupCourse extends StatelessWidget {
             color: black.withOpacity(0.3),
           ),
           Text(
-            _course.time.toString() + " min",
-            style: TextStyle(
+            "${_course.time} min",
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w300,
               letterSpacing: 1.5,
             ),
           ),
-          Text(
+          const Text(
             " - ",
             style: TextStyle(
               fontSize: 14,
@@ -159,7 +159,7 @@ class StartupCourse extends StatelessWidget {
           ),
           Text(
             _course.students,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w300,
               letterSpacing: 1.5,
@@ -178,7 +178,7 @@ class StartupCourse extends StatelessWidget {
         children: [
           Text(
             _course.name,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w800,
               letterSpacing: 1.5,
@@ -203,7 +203,7 @@ class StartupCourse extends StatelessWidget {
               BoxShadow(
                   color: black.withOpacity(0.3),
                   blurRadius: 30.0,
-                  offset: Offset(10, 15))
+                  offset: const Offset(10, 15))
             ]),
         child: Padding(
           padding: const EdgeInsets.all(appPadding),
@@ -219,7 +219,7 @@ class StartupCourse extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 // Ensure the children align at the start
                 children: [
-                  Container(
+                  SizedBox(
                     width: size.width * 0.3,
                     height: size.height * 0.2,
                     child: ClipRRect(
@@ -229,14 +229,12 @@ class StartupCourse extends StatelessWidget {
                   ),
                   Flexible(
                     // The key here is the use of Flexible around the second container
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: appPadding / 2, top: appPadding / 1.5),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: displayDataPose(pose, size),
-                        ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: appPadding / 2, top: appPadding / 1.5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: displayDataPose(pose, size),
                       ),
                     ),
                   )
@@ -252,13 +250,13 @@ class StartupCourse extends StatelessWidget {
       Row(children: [
         Text(
           pose.english_name,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16,
           ),
           maxLines: 2,
         ),
-        Spacer(),
+        const Spacer(),
         Icon(
           Icons.arrow_right_alt_rounded,
           color: black.withOpacity(0.3),

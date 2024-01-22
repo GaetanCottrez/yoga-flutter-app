@@ -9,7 +9,7 @@ class NavigationControls extends StatelessWidget {
   final String courseName;
   final int courseId;
 
-  NavigationControls({
+  const NavigationControls({
     Key? key,
     required this.poses,
     required this.poseIndex,
@@ -63,7 +63,7 @@ class NavigationButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  NavigationButton({
+  const NavigationButton({
     Key? key,
     required this.text,
     required this.onPressed,

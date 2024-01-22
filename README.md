@@ -76,7 +76,7 @@ cd yoga-flutter-app
   open -a Simulator
 ```
 
-### 4. Configure the variables in `.env`
+### 4. Configure the variables
 
 Before running the application, make sure to properly configure the following settings:
 
@@ -123,6 +123,16 @@ flutter run -t lib/main_development.dart
 ```shell
 flutter run
 ```
+
+## Screenshot
+
+![Screenshot 1](/screenshot/screenshot1.png).
+![Screenshot 2](/screenshot/screenshot2.png).
+![Screenshot 3](/screenshot/screenshot3.png).
+![Screenshot 4](/screenshot/screenshot4.png).
+![Screenshot 5](/screenshot/screenshot5.png).
+![Screenshot 6](/screenshot/screenshot6.png).
+![Screenshot 7](/screenshot/screenshot7.png).
 
 ## Contributing
 

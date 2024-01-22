@@ -9,7 +9,7 @@ import 'package:yoga_training_app/shared/curved_navigation_bar_builder.dart';
 class StartupScreen extends StatefulWidget {
   final Course course;
 
-  const StartupScreen({required this.course});
+  const StartupScreen({Key? key, required this.course}) : super(key: key);
 
   @override
   _StartupScreenState createState() => _StartupScreenState();
@@ -25,7 +25,7 @@ class _StartupScreenState extends State<StartupScreen> {
       backgroundColor: Colors.white,
       extendBody: true,
       body: Padding(
-        padding: EdgeInsets.only(top: appPadding * 2),
+        padding: const EdgeInsets.only(top: appPadding * 2),
         child: Column(
           children: [
             CustomAppBar(),

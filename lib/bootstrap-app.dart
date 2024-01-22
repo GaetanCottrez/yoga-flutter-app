@@ -4,6 +4,8 @@ import 'package:yoga_training_app/features/login/presentation/pages/login_screen
 import 'package:yoga_training_app/features/splash/presentation/pages/SplashScreen.dart';
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,10 +15,10 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.green,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: SplashScreen(),
+        home: const SplashScreen(),
         routes: {
-          '/home': (context) => HomeScreen(),
-          '/login': (context) => LoginScreen(),
+          '/home': (context) => const HomeScreen(),
+          '/login': (context) => const LoginScreen(),
         });
   }
 }

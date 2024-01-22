@@ -14,20 +14,20 @@ class LaunchedSessionRemoteDataSource implements ILaunchedSessionDataSource {
     LaunchedSession? launchedSession;
     try {
       printInternal(
-          Uri.parse(EnvironmentConfig.getBaseUrl() + 'user/session/active'));
+          Uri.parse('${EnvironmentConfig.getBaseUrl()}user/session/active'));
       Response response = await get(
-        Uri.parse(EnvironmentConfig.getBaseUrl() + 'user/session/active'),
+        Uri.parse('${EnvironmentConfig.getBaseUrl()}user/session/active'),
         headers: {'Authorization': 'Bearer $accessToken'},
       );
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        launchedSession = new LaunchedSession(
+        launchedSession = LaunchedSession(
             start_date: DateTime.parse(data['start_date']),
             end_date: data['end_date'] != null
                 ? DateTime.parse(data['end_date'])
                 : null,
-            session: CourseRemoteDataSource.ConvertJSONCourse(data['session']));
+            session: CourseRemoteDataSource.convertJSONCourse(data['session']));
       } else if (response.statusCode == 401) {
         throw UnauthorizedException();
       } else {
@@ -52,25 +52,25 @@ class LaunchedSessionRemoteDataSource implements ILaunchedSessionDataSource {
 
   Future<LaunchedSession> startOrStopSession(
       String accessToken, int sessionId, String endpoint) async {
-    LaunchedSession launchedSession = new LaunchedSession(
+    LaunchedSession launchedSession = LaunchedSession(
         start_date: DateTime.now(), end_date: null, session: null);
     try {
       printInternal(
-          EnvironmentConfig.getBaseUrl() + 'session/${sessionId}/${endpoint}');
+          '${EnvironmentConfig.getBaseUrl()}session/$sessionId/$endpoint');
       Response response = await post(
-        Uri.parse(EnvironmentConfig.getBaseUrl() +
-            'session/${sessionId}/${endpoint}'),
+        Uri.parse(
+            '${EnvironmentConfig.getBaseUrl()}session/$sessionId/$endpoint'),
         headers: {'Authorization': 'Bearer $accessToken'},
       );
 
       if (response.statusCode == 201) {
         var data = jsonDecode(response.body);
-        launchedSession = new LaunchedSession(
+        launchedSession = LaunchedSession(
             start_date: DateTime.parse(data['start_date']),
             end_date: data['end_date'] != null
                 ? DateTime.parse(data['end_date'])
                 : null,
-            session: CourseRemoteDataSource.ConvertJSONCourse(data['session']));
+            session: CourseRemoteDataSource.convertJSONCourse(data['session']));
       } else if (response.statusCode == 401) {
         throw UnauthorizedException();
       } else {

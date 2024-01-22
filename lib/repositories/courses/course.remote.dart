@@ -11,7 +11,7 @@ import 'package:yoga_training_app/domain/entities/pose.dart';
 class CourseRemoteDataSource implements ICourseDataSource {
   @override
   Future<List<Course>> getAllCourses(String accessToken) async {
-    return await this.getCourses(accessToken, 'session');
+    return await getCourses(accessToken, 'session');
   }
 
   Future<List<Course>> getCourses(String accessToken, String endpoint) async {
@@ -27,7 +27,7 @@ class CourseRemoteDataSource implements ICourseDataSource {
 
         // Assuming 'data' is a list of courses
         for (var courseJson in data) {
-          courseList.add(CourseRemoteDataSource.ConvertJSONCourse(courseJson));
+          courseList.add(CourseRemoteDataSource.convertJSONCourse(courseJson));
         }
       } else if (response.statusCode == 401) {
         throw UnauthorizedException();
@@ -36,17 +36,18 @@ class CourseRemoteDataSource implements ICourseDataSource {
       }
     } catch (e) {
       printInternal(e.toString());
-      throw e;
+      rethrow;
     }
     return courseList;
   }
 
+  @override
   Future<List<Course>> getBeginnerCourses(String accessToken) async {
-    return await this.getCourses(accessToken, 'session/difficulty/1');
+    return await getCourses(accessToken, 'session/difficulty/1');
   }
 
-  static Course ConvertJSONCourse(courseJson) {
-    Course course = new Course(
+  static Course convertJSONCourse(courseJson) {
+    Course course = Course(
         id: courseJson['id'],
         imageUrl: courseJson['poses'][0]['img_url_jpg'],
         name: courseJson['title'],
@@ -59,7 +60,7 @@ class CourseRemoteDataSource implements ICourseDataSource {
 
   static List<Pose> convertJSONPoses(courseJson) {
     List<Pose> poses = courseJson['poses']
-        .map<Pose>((pose) => new Pose(
+        .map<Pose>((pose) => Pose(
             id: pose['id'],
             sanskrit_name: pose['sanskrit_name'],
             english_name: pose['english_name'],

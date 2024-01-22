@@ -10,19 +10,20 @@ import 'package:yoga_training_app/features/launched_session/presentation/pages/f
 import 'package:yoga_training_app/features/launched_session/presentation/widgets/workout_widget.dart';
 
 class WorkOutScreen extends StatelessWidget {
-  List<Pose> poses;
-  int poseIndex;
-  String courseName;
-  int courseId;
+  final List<Pose> poses;
+  final int poseIndex;
+  final String courseName;
+  final int courseId;
 
   final int durationPose = ConstantConfig().durationPose;
 
   WorkOutScreen({
+    Key? key,
     required this.poses,
     required this.poseIndex,
     required this.courseName,
     required this.courseId,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +64,7 @@ class WorkOutTimerModelSec extends AbstractTimerModelSec {
     initializeTimer(context, poses, poseIndex, courseName, courseId);
   }
 
+  @override
   int countdown = 0;
   bool isLast = false;
   bool isDisposed = false;
@@ -75,7 +77,9 @@ class WorkOutTimerModelSec extends AbstractTimerModelSec {
     countdown = count;
   }
 
+  @override
   bool visible = false;
+  @override
   bool isPassed = false;
   Timer? _timer;
 
@@ -86,9 +90,8 @@ class WorkOutTimerModelSec extends AbstractTimerModelSec {
     String courseName,
     int courseId,
   ) {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (!isDisposed) {
-        // Vérifier si le modèle a été disposé avant de continuer
         visible ? countdown + 0 : countdown--;
         notifyListeners();
         if (countdown == 0) {

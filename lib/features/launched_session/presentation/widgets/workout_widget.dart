@@ -75,9 +75,9 @@ class PoseContent extends StatelessWidget {
         const Spacer(),
         PoseName(poses: poses, poseIndex: poseIndex),
         const Spacer(),
-        CountdownTimer(),
+        const CountdownTimer(),
         const SizedBox(height: 30),
-        PauseButton(),
+        const PauseButton(),
         const Spacer(),
         _buildNavigationButtons(context),
         const BottomDivider(),
@@ -88,7 +88,7 @@ class PoseContent extends StatelessWidget {
 
   Widget _buildNavigationButtons(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 15),
+      margin: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -98,7 +98,7 @@ class PoseContent extends StatelessWidget {
                 return ElevatedButton(
                   onPressed: () async {
                     myModel.Pass();
-                    await Future.delayed(Duration(seconds: 1));
+                    await Future.delayed(const Duration(seconds: 1));
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
@@ -130,7 +130,7 @@ class PoseContent extends StatelessWidget {
                 return ElevatedButton(
                   onPressed: () async {
                     myModel.Pass();
-                    await Future.delayed(Duration(seconds: 1));
+                    await Future.delayed(const Duration(seconds: 1));
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
@@ -163,6 +163,8 @@ class PoseContent extends StatelessWidget {
 }
 
 class CountdownTimer extends StatelessWidget {
+  const CountdownTimer({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -172,7 +174,7 @@ class CountdownTimer extends StatelessWidget {
         color: primary,
         borderRadius: BorderRadius.circular(50),
       ),
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TimerText(),
@@ -195,11 +197,13 @@ class TimerText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("00", style: timerTextStyle);
+    return const Text("00", style: timerTextStyle);
   }
 }
 
 class CountdownText extends StatelessWidget {
+  const CountdownText({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Consumer<WorkOutTimerModelSec>(
@@ -235,6 +239,8 @@ class PoseName extends StatelessWidget {
 }
 
 class NavigationWorkOut extends StatelessWidget {
+  const NavigationWorkOut({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Consumer<WorkOutTimerModelSec>(
@@ -252,6 +258,8 @@ class NavigationWorkOut extends StatelessWidget {
 }
 
 class PauseButton extends StatelessWidget {
+  const PauseButton({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Consumer<WorkOutTimerModelSec>(
@@ -282,7 +290,7 @@ class PauseOverlayConsumer extends StatelessWidget {
     required this.courseName,
   }) : super(key: key);
 
-  StopLaunchedSessionUseCase stopLaunchedSessionUseCase =
+  final StopLaunchedSessionUseCase stopLaunchedSessionUseCase =
       InjectionContainer.provideStopLaunchedSessionUseCase();
 
   @override

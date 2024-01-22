@@ -5,7 +5,7 @@ import 'package:yoga_training_app/domain/entities/pose.dart';
 class DetailsPose extends StatelessWidget {
   final Pose _pose;
 
-  DetailsPose(this._pose);
+  const DetailsPose(this._pose, {Key? key}) : super(key: key);
 
   Future<Pose> getPose() async {
     return _pose;
@@ -35,7 +35,7 @@ class DetailsPose extends StatelessWidget {
             const EdgeInsets.symmetric(horizontal: appPadding, vertical: 10),
         child: Text(
           value,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w300,
             letterSpacing: 1.5,
@@ -58,7 +58,7 @@ class DetailsPose extends StatelessWidget {
         children: [
           Text(
             value,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w800,
               letterSpacing: 1.5,
@@ -77,7 +77,7 @@ class DetailsPose extends StatelessWidget {
         children: [
           Text(
             value,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w800,
               letterSpacing: 1.5,

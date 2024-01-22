@@ -6,6 +6,8 @@ import 'package:yoga_training_app/repositories/token.dart';
 class CustomAppBar extends StatelessWidget {
   final TokenStorage _tokenStorage = TokenStorage();
 
+  CustomAppBar({Key? key}) : super(key: key);
+
   Future<String?> getName(BuildContext context) async {
     String accessToken = await _tokenStorage.getAccessToken();
     return JwtDecoder.decode(accessToken)['username'];
@@ -20,7 +22,7 @@ class CustomAppBar extends StatelessWidget {
       builder: (context, snapshot) {
         String name = snapshot.data ?? 'Guest';
         return Padding(
-          padding: EdgeInsets.only(left: 20.0, right: 10.0),
+          padding: const EdgeInsets.only(left: 20.0, right: 10.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -33,19 +35,19 @@ class CustomAppBar extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(appPadding / 8),
                     child: Container(
-                      decoration: new BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: primary,
                         shape: BoxShape.circle,
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(appPadding / 20),
                         child: Container(
-                          decoration: new BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: white,
                             shape: BoxShape.circle,
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(appPadding / 8),
+                          child: const Padding(
+                            padding: EdgeInsets.all(appPadding / 8),
                             child: Center(
                               child: CircleAvatar(
                                 backgroundImage: AssetImage(
@@ -63,7 +65,7 @@ class CustomAppBar extends StatelessWidget {
                   ),
                   Text(
                     name,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: black,
                         fontWeight: FontWeight.w600,
                         fontSize: 18),
@@ -83,12 +85,12 @@ class CustomAppBar extends StatelessWidget {
           onTap: () {
             Navigator.pop(context);
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back_sharp,
             size: 30.0,
           ));
     }
-    return Text(
+    return const Text(
       'Namaste !',
       style: TextStyle(color: black, fontWeight: FontWeight.w600, fontSize: 18),
     );

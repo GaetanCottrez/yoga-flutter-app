@@ -14,10 +14,12 @@ class LoginCredentials extends StatelessWidget {
   TextEditingController passwordController = TextEditingController();
   final TokenStorage _tokenStorage = TokenStorage();
 
+  LoginCredentials({Key? key}) : super(key: key);
+
   Future<String?> login(String username, password) async {
     try {
       Response response = await post(
-          Uri.parse(EnvironmentConfig.getBaseUrl() + 'auth/login'),
+          Uri.parse('${EnvironmentConfig.getBaseUrl()}auth/login'),
           body: {'username': username, 'password': password});
 
       if (response.statusCode == 201) {
@@ -47,7 +49,7 @@ class LoginCredentials extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Connectez-vous',
             style: TextStyle(
               fontSize: 24,
@@ -63,8 +65,8 @@ class LoginCredentials extends StatelessWidget {
             child: TextField(
               controller: usernameController,
               decoration: InputDecoration(
-                border: OutlineInputBorder(borderSide: BorderSide.none),
-                contentPadding: EdgeInsets.symmetric(
+                border: const OutlineInputBorder(borderSide: BorderSide.none),
+                contentPadding: const EdgeInsets.symmetric(
                     vertical: appPadding * 0.75, horizontal: appPadding),
                 fillColor: white,
                 hintText: 'Nom d\'utilisateur',
@@ -87,8 +89,8 @@ class LoginCredentials extends StatelessWidget {
               controller: passwordController,
               obscureText: true,
               decoration: InputDecoration(
-                border: OutlineInputBorder(borderSide: BorderSide.none),
-                contentPadding: EdgeInsets.symmetric(
+                border: const OutlineInputBorder(borderSide: BorderSide.none),
+                contentPadding: const EdgeInsets.symmetric(
                     vertical: appPadding * 0.75, horizontal: appPadding),
                 fillColor: Colors.white,
                 hintText: 'Mot de passe',
@@ -119,14 +121,17 @@ class LoginCredentials extends StatelessWidget {
                   passwordController.text.toString());
               printInternal(result?.length);
               if (result != null) {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const HomeScreen()));
               } else {
                 var snackBar = SnackBar(
-                  content: Text('Nom d\'utilisateur ou mot de passe incorrect'),
+                  content: const Text(
+                      'Nom d\'utilisateur ou mot de passe incorrect'),
                   backgroundColor: Colors.red,
                   behavior: SnackBarBehavior.floating,
-                  duration: Duration(milliseconds: 3000),
+                  duration: const Duration(milliseconds: 3000),
                   action: SnackBarAction(
                     label: "J'ai compris !",
                     disabledTextColor: Colors.white,
@@ -144,10 +149,10 @@ class LoginCredentials extends StatelessWidget {
                 shadowColor: primary,
                 color: primary,
                 borderRadius: BorderRadius.circular(30.0),
-                child: Container(
+                child: SizedBox(
                   width: size.width,
                   height: size.width * 0.15,
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       'Se connecter',
                       style: TextStyle(

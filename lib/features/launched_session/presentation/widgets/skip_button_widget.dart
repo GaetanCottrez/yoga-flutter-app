@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:yoga_training_app/features/launched_session/presentation/pages/breaktime_screen.dart';
 
 class SkipButton extends StatelessWidget {
+  const SkipButton({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Consumer<BreaktimeTimerModelSec>(

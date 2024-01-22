@@ -15,6 +15,8 @@ import 'package:yoga_training_app/injections/course.injection.dart';
 import 'package:yoga_training_app/shared/curved_navigation_bar_builder.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -40,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.white,
       extendBody: true,
       body: Padding(
-        padding: EdgeInsets.only(top: appPadding * 2),
+        padding: const EdgeInsets.only(top: appPadding * 2),
         child: Column(
           children: [
             CustomAppBar(),
@@ -52,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
               builder: (BuildContext context,
                   AsyncSnapshot<LaunchedSession?> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else if (snapshot.hasData) {
@@ -80,17 +82,17 @@ class _HomeScreenState extends State<HomeScreen> {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text('Session en cours'),
+              title: const Text('Session en cours'),
               content: Text(
                 'Vous avez la session ${launchedSession?.session?.name} en cours.\n\nVoulez-vous la reprendre ?',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w300,
                 ),
               ),
               actions: [
                 TextButton(
-                  child: Text('Oui'),
+                  child: const Text('Oui'),
                   onPressed: () {
                     Navigator.pop(context);
                     Navigator.push(
@@ -101,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
                 TextButton(
-                  child: Text('Non'),
+                  child: const Text('Non'),
                   onPressed: () async {
                     await stopLaunchedSessionUseCase
                         .call(launchedSession!.session!.id);

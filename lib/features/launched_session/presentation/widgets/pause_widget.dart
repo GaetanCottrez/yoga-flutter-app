@@ -43,6 +43,10 @@ class PauseOverlay extends StatelessWidget {
       {bool isFilled = false}) {
     return OutlinedButton(
       onPressed: onPressed,
+      style: isFilled
+          ? ButtonStyle(backgroundColor: MaterialStateProperty.all(white))
+          : ButtonStyle(
+              side: MaterialStateProperty.all(const BorderSide(color: white))),
       child: SizedBox(
         width: 180,
         child: Text(
@@ -51,10 +55,6 @@ class PauseOverlay extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
       ),
-      style: isFilled
-          ? ButtonStyle(backgroundColor: MaterialStateProperty.all(white))
-          : ButtonStyle(
-              side: MaterialStateProperty.all(BorderSide(color: white))),
     );
   }
 }

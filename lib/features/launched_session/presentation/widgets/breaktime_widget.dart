@@ -27,7 +27,7 @@ class BreakTimeWidget extends StatelessWidget {
     required this.courseId,
   }) : super(key: key);
 
-  StopLaunchedSessionUseCase stopLaunchedSessionUseCase =
+  final StopLaunchedSessionUseCase stopLaunchedSessionUseCase =
       InjectionContainer.provideStopLaunchedSessionUseCase();
 
   @override
@@ -91,7 +91,7 @@ class BreakTimeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: Column(
@@ -99,9 +99,9 @@ class BreakTimeContent extends StatelessWidget {
         children: [
           const Spacer(),
           const BreakTimeText(),
-          BreakTimeCountdown(),
+          const BreakTimeCountdown(),
           const SizedBox(height: 20),
-          SkipButton(),
+          const SkipButton(),
           const Spacer(),
           NavigationControls(
             poses: poses,
@@ -134,6 +134,8 @@ class BreakTimeText extends StatelessWidget {
 }
 
 class BreakTimeCountdown extends StatelessWidget {
+  const BreakTimeCountdown({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Consumer<BreaktimeTimerModelSec>(

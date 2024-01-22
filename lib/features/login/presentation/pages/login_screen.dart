@@ -4,6 +4,8 @@ import 'package:yoga_training_app/features/login/presentation/widgets/circle_but
 import 'package:yoga_training_app/features/login/presentation/widgets/login_credentials.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -19,11 +21,11 @@ class _LoginScreenState extends State<LoginScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                BackgroundImage(),
+                const BackgroundImage(),
                 LoginCredentials(),
               ],
             ),
-            CircleButton(),
+            const CircleButton(),
           ],
         ),
       ),

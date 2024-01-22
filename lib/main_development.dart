@@ -8,5 +8,5 @@ void main() {
   EnvironmentConfig(
       environment: Environment.DEVELOPMENT,
       baseUrl: BaseUrlConfig().baseUrlDevelopment);
-  runApp(MyApp());
+  runApp(const MyApp());
 }

@@ -9,8 +9,10 @@ import 'package:yoga_training_app/features/startup/presentation/pages/startup_sc
 class Beginners extends StatelessWidget {
   final GetBeginnerCoursesUseCase _getBeginnerCoursesUseCase;
 
-  Beginners({required GetBeginnerCoursesUseCase getBeginnerCoursesUseCase})
-      : _getBeginnerCoursesUseCase = getBeginnerCoursesUseCase;
+  const Beginners(
+      {Key? key, required GetBeginnerCoursesUseCase getBeginnerCoursesUseCase})
+      : _getBeginnerCoursesUseCase = getBeginnerCoursesUseCase,
+        super(key: key);
 
   Widget _buildBeginner(BuildContext context, Course beginner) {
     Size size = MediaQuery.of(context).size;
@@ -28,13 +30,13 @@ class Beginners extends StatelessWidget {
                         builder: (context) => StartupScreen(course: beginner)));
               },
               child: Container(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                     top: appPadding * 3, bottom: appPadding * 2),
                 width: size.width * 0.4,
                 height: size.height * 0.2,
                 decoration: BoxDecoration(
                     color: white,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(20.0),
                         bottomLeft: Radius.circular(20.0),
                         bottomRight: Radius.circular(20.0),
@@ -43,7 +45,7 @@ class Beginners extends StatelessWidget {
                       BoxShadow(
                           color: black.withOpacity(0.3),
                           blurRadius: 20.0,
-                          offset: Offset(5, 15))
+                          offset: const Offset(5, 15))
                     ]),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +58,7 @@ class Beginners extends StatelessWidget {
                           top: appPadding),
                       child: Text(
                         beginner.name,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
@@ -81,7 +83,7 @@ class Beginners extends StatelessWidget {
                                 width: size.width * 0.01,
                               ),
                               Text(
-                                beginner.time.toString() + ' min',
+                                '${beginner.time} min',
                                 style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
@@ -94,7 +96,7 @@ class Beginners extends StatelessWidget {
                             decoration: BoxDecoration(
                                 color: primary,
                                 borderRadius: BorderRadius.circular(5.0)),
-                            child: Icon(
+                            child: const Icon(
                               Icons.add,
                               color: white,
                             ),
@@ -128,16 +130,16 @@ class Beginners extends StatelessWidget {
         courses = await _getBeginnerCoursesUseCase.call();
         // Update your UI with the courses
       } on UnauthorizedException catch (_) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
       }
       return courses;
     }
 
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
+        const Padding(
+          padding: EdgeInsets.symmetric(
               horizontal: appPadding, vertical: appPadding),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -166,7 +168,7 @@ class Beginners extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return SizedBox(
                   height: size.height * 0.33,
-                  child: Center(child: CircularProgressIndicator()),
+                  child: const Center(child: CircularProgressIndicator()),
                 );
               } else if (snapshot.hasError) {
                 return SizedBox(
@@ -175,10 +177,10 @@ class Beginners extends StatelessWidget {
                 );
               } else if (snapshot.hasData) {
                 List<Course> beginners = snapshot.data!;
-                return Container(
+                return SizedBox(
                   height: size.height * 0.33,
                   child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemCount: beginners.length > 5 ? 5 : beginners.length,
                     itemBuilder: (BuildContext context, int index) {
@@ -189,7 +191,8 @@ class Beginners extends StatelessWidget {
               } else {
                 return SizedBox(
                   height: size.height * 0.33,
-                  child: Center(child: Text('No beginners styles available')),
+                  child: const Center(
+                      child: Text('No beginners styles available')),
                 );
               }
             },

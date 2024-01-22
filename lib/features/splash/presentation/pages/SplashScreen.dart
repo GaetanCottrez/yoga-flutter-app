@@ -24,11 +24,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
       if (response.statusCode != 200) {
         var snackBar = SnackBar(
-          content: Text(
+          content: const Text(
               'Notre API est actuellement indisponible. Veuillez réessayer plus tard'),
           backgroundColor: Colors.red,
           behavior: SnackBarBehavior.floating,
-          duration: Duration(milliseconds: 3000),
+          duration: const Duration(milliseconds: 3000),
           action: SnackBarAction(
             label: "Ok",
             disabledTextColor: Colors.white,
@@ -44,11 +44,11 @@ class _SplashScreenState extends State<SplashScreen> {
       return true;
     } catch (e) {
       var snackBar = SnackBar(
-        content: Text(
+        content: const Text(
             'Une erreur inconnue est survenue. Veuillez réessayer plus tard'),
         backgroundColor: Colors.red,
         behavior: SnackBarBehavior.floating,
-        duration: Duration(milliseconds: 30000),
+        duration: const Duration(milliseconds: 30000),
         action: SnackBarAction(
           label: "Ok",
           disabledTextColor: Colors.white,
@@ -89,14 +89,14 @@ class _SplashScreenState extends State<SplashScreen> {
     printInternal(
         accessToken != '' ? JwtDecoder.decode(accessToken) : 'no token');
     if (accessToken != '' && !JwtDecoder.isExpired(accessToken)) {
-      Future.delayed(Duration(seconds: 3), () {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      Future.delayed(const Duration(seconds: 3), () {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()));
       });
     } else {
-      Future.delayed(Duration(seconds: 3), () {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      Future.delayed(const Duration(seconds: 3), () {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
       });
     }
   }

@@ -8,17 +8,18 @@ import 'package:yoga_training_app/injections/course.injection.dart';
 import 'package:yoga_training_app/shared/curved_navigation_bar_builder.dart';
 
 class FinishScreen extends StatefulWidget {
-  String courseName;
-  int courseId;
+  final String courseName;
+  final int courseId;
 
-  FinishScreen({
+  const FinishScreen({
+    Key? key,
     required this.courseName,
     required this.courseId,
-  });
+  }) : super(key: key);
 
   @override
   _FinishScreenState createState() =>
-      _FinishScreenState(courseName: this.courseName, courseId: this.courseId);
+      _FinishScreenState(courseName: courseName, courseId: courseId);
 }
 
 class _FinishScreenState extends State<FinishScreen> {
@@ -33,13 +34,14 @@ class _FinishScreenState extends State<FinishScreen> {
   StopLaunchedSessionUseCase stopLaunchedSessionUseCase =
       InjectionContainer.provideStopLaunchedSessionUseCase();
 
+  @override
   Widget build(BuildContext context) {
     int selectedIconIndex = 0;
     return Scaffold(
       backgroundColor: Colors.white,
       extendBody: true,
       body: Padding(
-        padding: EdgeInsets.only(top: appPadding * 2),
+        padding: const EdgeInsets.only(top: appPadding * 2),
         child: Column(
           children: [
             CustomAppBar(),
@@ -49,7 +51,7 @@ class _FinishScreenState extends State<FinishScreen> {
               builder: (BuildContext context,
                   AsyncSnapshot<LaunchedSession> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 }

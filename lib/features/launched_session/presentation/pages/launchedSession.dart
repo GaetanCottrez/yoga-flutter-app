@@ -13,17 +13,17 @@ import 'package:yoga_training_app/features/launched_session/presentation/widgets
 import 'package:yoga_training_app/injections/course.injection.dart';
 
 class LaunchedSessionScreen extends StatelessWidget {
-  Course course;
+  final Course course;
 
-  LaunchedSessionScreen({required this.course});
+  LaunchedSessionScreen({Key? key, required this.course}) : super(key: key);
 
   T getRandomElement<T>(List<T> list) {
-    final random = new Random();
+    final random = Random();
     var i = random.nextInt(list.length);
     return list[i];
   }
 
-  var list = [
+  final List<String> list = [
     'Créez un espace confortable pour votre pratique du yoga.',
     'Le yoga peut atténuer les symptômes de l\'arthrite.',
     'Le yoga est bénéfique pour la santé cardiaque.',
@@ -42,7 +42,7 @@ class LaunchedSessionScreen extends StatelessWidget {
     'Le yoga peut améliorer votre relation avec votre corps et renforcer la confiance en soi.'
   ];
 
-  StartLaunchedSessionUseCase startLaunchedSessionUseCase =
+  final StartLaunchedSessionUseCase startLaunchedSessionUseCase =
       InjectionContainer.provideStartLaunchedSessionUseCase();
 
   @override
@@ -51,55 +51,52 @@ class LaunchedSessionScreen extends StatelessWidget {
       create: (context) => TimerModel(context, course: course),
       child: Scaffold(
         body: Center(
-          child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 2 - 100,
-                ),
-                FutureBuilder<LaunchedSession>(
-                  future: startLaunchedSessionUseCase.call(course.id),
-                  // Call the use case.
-                  builder: (BuildContext context,
-                      AsyncSnapshot<LaunchedSession> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasError) {
-                      return Center(child: Text('Error: ${snapshot.error}'));
-                    }
-                    return Text(
-                      "ETES-VOUS PRET ?",
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    );
-                  },
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                Consumer<TimerModel>(builder: (context, myModel, child) {
-                  return Text(
-                    myModel.countdown.toString(),
-                    style: TextStyle(fontSize: 48),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 2 - 100,
+              ),
+              FutureBuilder<LaunchedSession>(
+                future: startLaunchedSessionUseCase.call(course.id),
+                // Call the use case.
+                builder: (BuildContext context,
+                    AsyncSnapshot<LaunchedSession> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  }
+                  return const Text(
+                    "ETES-VOUS PRET ?",
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   );
-                }),
-                Spacer(),
-                BottomDivider(),
-                Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 15),
-                      child: Text(
-                        "Tip: " + getRandomElement(list),
-                        style: TextStyle(
-                            fontSize: 13, fontWeight: FontWeight.bold),
-                      ),
-                    ))
-              ],
-            ),
+                },
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              Consumer<TimerModel>(builder: (context, myModel, child) {
+                return Text(
+                  myModel.countdown.toString(),
+                  style: const TextStyle(fontSize: 48),
+                );
+              }),
+              const Spacer(),
+              const BottomDivider(),
+              Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 15),
+                    child: Text(
+                      "Tip: ${getRandomElement(list)}",
+                      style: const TextStyle(
+                          fontSize: 13, fontWeight: FontWeight.bold),
+                    ),
+                  ))
+            ],
           ),
         ),
       ),
@@ -112,14 +109,14 @@ class TimerModel with ChangeNotifier {
 
   TimerModel(context, {required this.course}) {
     List<Pose> poses =
-        Course.MakeThisSession(this.course, ConstantConfig().durationPose);
-    MyTimer(context, poses);
+        Course.MakeThisSession(course, ConstantConfig().durationPose);
+    myTimer(context, poses);
   }
 
   int countdown = 5;
 
-  MyTimer(context, List<Pose> poses) async {
-    Timer.periodic(Duration(seconds: 1), (timer) {
+  myTimer(context, List<Pose> poses) async {
+    Timer.periodic(const Duration(seconds: 1), (timer) {
       countdown--;
       if (countdown == 0) {
         timer.cancel();

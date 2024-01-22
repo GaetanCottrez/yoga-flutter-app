@@ -25,7 +25,7 @@ class CurvedNavigationBarBuilder extends StatelessWidget {
         _handleNavigationTap(
             context, index); // Appel de la fonction de navigation
       },
-      animationDuration: Duration(
+      animationDuration: const Duration(
         milliseconds: 200,
       ),
       items: <Widget>[

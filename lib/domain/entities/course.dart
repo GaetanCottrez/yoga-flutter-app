@@ -27,7 +27,7 @@ class Course {
       int courseTimeSeconds = ((course.time * 60) / (durationPose + 5)).round();
       if (course.poses.length < courseTimeSeconds) {
         int posesToGenerate = courseTimeSeconds - course.poses.length;
-        Random random = new Random();
+        Random random = Random();
         // Generate `posesToGenerate` number of poses.
         for (int i = 0; i < posesToGenerate; i++) {
           // Make sure to generate a random index which is within the bounds of `course.poses`.

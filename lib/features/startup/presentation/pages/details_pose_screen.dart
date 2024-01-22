@@ -9,7 +9,7 @@ import 'package:yoga_training_app/shared/curved_navigation_bar_builder.dart';
 class DetailsPoseScreen extends StatefulWidget {
   final Pose pose;
 
-  const DetailsPoseScreen({required this.pose});
+  const DetailsPoseScreen({Key? key, required this.pose}) : super(key: key);
 
   @override
   _DetailsPoseScreenState createState() => _DetailsPoseScreenState();
@@ -25,7 +25,7 @@ class _DetailsPoseScreenState extends State<DetailsPoseScreen> {
       backgroundColor: Colors.white,
       extendBody: true,
       body: Padding(
-        padding: EdgeInsets.only(top: appPadding * 2),
+        padding: const EdgeInsets.only(top: appPadding * 2),
         child: Column(
           children: [
             CustomAppBar(),

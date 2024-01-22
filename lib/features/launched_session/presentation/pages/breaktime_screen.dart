@@ -8,17 +8,18 @@ import 'package:yoga_training_app/features/launched_session/presentation/pages/w
 import 'package:yoga_training_app/features/launched_session/presentation/widgets/breaktime_widget.dart';
 
 class BreakTimeScreen extends StatelessWidget {
-  List<Pose> poses;
-  int poseIndex;
-  String courseName;
-  int courseId;
+  final List<Pose> poses;
+  final int poseIndex;
+  final String courseName;
+  final int courseId;
 
-  BreakTimeScreen({
+  const BreakTimeScreen({
+    Key? key,
     required this.poses,
     required this.poseIndex,
     required this.courseName,
     required this.courseId,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +51,7 @@ class BreaktimeTimerModelSec extends AbstractTimerModelSec {
     MyTimerSec(context, poses, poseIndex, courseName, courseId);
   }
 
+  @override
   int countdown = 10;
 
   MyTimerSec(context, List<Pose> poses, int poseIndex, String courseName,
