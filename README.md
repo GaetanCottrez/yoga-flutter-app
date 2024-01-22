@@ -2,9 +2,9 @@
   <h1 align="center">Yoga Flutter App</h1>
 
 <div align="center">
-  <a href="https://github.com/mfts/papermark/stargazers"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/mfts/papermark"></a>
-  <a href="https://twitter.com/mfts0"><img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/mfts0"></a>
-  <a href="https://github.com/mfts/papermark/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/badge/license-AGPLv3-purple"></a>
+  <a href="https://github.com/GaetanCottrez/yoga-flutter-app/stargazers"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/GaetanCottrez/yoga-flutter-app"></a>
+  <a href="https://www.linkedin.com/in/gaetan-cottrez/"><img alt="LinkedIn Profile" src="https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white"></a>
+  <a href="https://github.com/GaetanCottrez/yoga-flutter-app/blob/master/README.md"><img alt="License" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
 </div>
 
 <br/>
@@ -137,3 +137,12 @@ requests are warmly welcome.
 ## Inspiration
 
 - [Yoga-Training-App-UI](https://github.com/SayujSujeev/Yoga-Training-App-UI)
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
+
+We hope that this enhanced version of the README will be helpful for sharing your Yoga Flutter App
+with other developers and users.
+
+If you have any further questions or need additional assistance, feel free to ask. Happy coding!
