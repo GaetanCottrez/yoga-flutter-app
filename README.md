@@ -1,4 +1,4 @@
-<div align="center">
+<div>
   <h1 align="center">Yoga Flutter App</h1>
 
 <div align="center">
@@ -146,3 +146,4 @@ We hope that this enhanced version of the README will be helpful for sharing you
 with other developers and users.
 
 If you have any further questions or need additional assistance, feel free to ask. Happy coding!
+</div>
