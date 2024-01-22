@@ -43,6 +43,8 @@ class BreakTimeScreen extends StatelessWidget {
 }
 
 class BreaktimeTimerModelSec extends AbstractTimerModelSec {
+  Timer? _timer;
+
   BreaktimeTimerModelSec(context, List<Pose> poses, int poseIndex,
       String courseName, int courseId) {
     MyTimerSec(context, poses, poseIndex, courseName, courseId);
@@ -51,24 +53,32 @@ class BreaktimeTimerModelSec extends AbstractTimerModelSec {
   int countdown = 10;
 
   MyTimerSec(context, List<Pose> poses, int poseIndex, String courseName,
-      int courseId) async {
-    Timer.periodic(const Duration(seconds: 1), (timer) {
+      int courseId) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       visible ? countdown + 0 : countdown--;
       notifyListeners();
       if (countdown == 0 || Isskip) {
         timer.cancel();
         Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => WorkOutScreen(
-                      poses: poses,
-                      poseIndex: poseIndex,
-                      courseId: courseId,
-                      courseName: courseName,
-                    )));
+          context,
+          MaterialPageRoute(
+            builder: (context) => WorkOutScreen(
+              poses: poses,
+              poseIndex: poseIndex,
+              courseId: courseId,
+              courseName: courseName,
+            ),
+          ),
+        );
       } else if (isPassed) {
         timer.cancel();
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel(); // Annuler le minuteur avant de disposer du modèle
+    super.dispose();
   }
 }

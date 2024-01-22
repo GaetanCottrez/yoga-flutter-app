@@ -59,9 +59,11 @@ class BreakTimeWidget extends StatelessWidget {
                     ),
                   );
                 },
-                onQuit: () async => {
-                  await stopLaunchedSessionUseCase.call(courseId),
-                  Navigator.pop(context)
+                onQuit: () async {
+                  await stopLaunchedSessionUseCase.call(courseId);
+                  Provider.of<BreaktimeTimerModelSec>(context, listen: false)
+                      .dispose();
+                  Navigator.pop(context);
                 },
                 onContinue: myModel.hide,
               );

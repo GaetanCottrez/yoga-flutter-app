@@ -27,6 +27,12 @@ class WorkOutWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final workOutModel =
+        Provider.of<WorkOutTimerModelSec>(context, listen: false);
+    if (workOutModel.isDisposed) {
+      return Container(); // ou tout autre widget de remplacement approprié
+    }
+
     return Scaffold(
       body: Stack(
         children: [
@@ -298,9 +304,10 @@ class PauseOverlayConsumer extends StatelessWidget {
               ),
             );
           },
-          onQuit: () async => {
-            await stopLaunchedSessionUseCase.call(courseId),
-            Navigator.pop(context)
+          onQuit: () async {
+            await stopLaunchedSessionUseCase.call(courseId);
+            Provider.of<WorkOutTimerModelSec>(context, listen: false).dispose();
+            Navigator.pop(context);
           },
           onContinue: myModel.hide,
         );
