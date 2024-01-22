@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
 import 'package:yoga_training_app/domain/entities/pose.dart';
+import 'package:yoga_training_app/domain/use-cases/stop_launched_session.dart';
 import 'package:yoga_training_app/features/launched_session/presentation/pages/breaktime_screen.dart';
 import 'package:yoga_training_app/features/launched_session/presentation/pages/workout_screen.dart';
 import 'package:yoga_training_app/features/launched_session/presentation/widgets/skip_button_widget.dart';
+import 'package:yoga_training_app/injections/course.injection.dart';
 
 import 'bottom_divider_widget.dart';
 import 'navigation_controls_widget.dart';
@@ -24,6 +26,9 @@ class BreakTimeWidget extends StatelessWidget {
     required this.courseName,
     required this.courseId,
   }) : super(key: key);
+
+  StopLaunchedSessionUseCase stopLaunchedSessionUseCase =
+      InjectionContainer.provideStopLaunchedSessionUseCase();
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +59,10 @@ class BreakTimeWidget extends StatelessWidget {
                     ),
                   );
                 },
-                onQuit: () => Navigator.pop(context),
+                onQuit: () async => {
+                  await stopLaunchedSessionUseCase.call(courseId),
+                  Navigator.pop(context)
+                },
                 onContinue: myModel.hide,
               );
             },
