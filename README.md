@@ -126,14 +126,14 @@ flutter run
 
 ## Screenshot
 
-![Screenshot 0](/screenshot/screenshot0.png).
-![Screenshot 1](/screenshot/screenshot1.png).
-![Screenshot 2](/screenshot/screenshot2.png).
-![Screenshot 3](/screenshot/screenshot3.png).
-![Screenshot 4](/screenshot/screenshot4.png).
-![Screenshot 5](/screenshot/screenshot5.png).
-![Screenshot 6](/screenshot/screenshot6.png).
-![Screenshot 7](/screenshot/screenshot7.png).
+<img alt="Screenshot 0" src="/screenshot/screenshot0.png" width="300"/>.
+<img alt="Screenshot 1" src="/screenshot/screenshot1.png" width="300"/>.
+<img alt="Screenshot 2" src="/screenshot/screenshot2.png" width="300"/>.
+<img alt="Screenshot 3" src="/screenshot/screenshot3.png" width="300"/>.
+<img alt="Screenshot 4" src="/screenshot/screenshot4.png" width="300"/>.
+<img alt="Screenshot 5" src="/screenshot/screenshot5.png" width="300"/>.
+<img alt="Screenshot 6" src="/screenshot/screenshot6.png" width="300"/>.
+<img alt="Screenshot 7" src="/screenshot/screenshot7.png" width="300"/>.
 
 ## Contributing
 
