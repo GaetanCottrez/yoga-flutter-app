@@ -1,10 +1,11 @@
 <div>
   <h1 align="center">Yoga Flutter App</h1>
 
-<div align="center">
-  <a href="https://github.com/GaetanCottrez/yoga-flutter-app/stargazers"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/GaetanCottrez/yoga-flutter-app"></a>
-  <a href="https://www.linkedin.com/in/gaetan-cottrez/"><img alt="LinkedIn Profile" src="https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white"></a>
-  <a href="https://github.com/GaetanCottrez/yoga-flutter-app/blob/master/LICENSE.md"><img alt="License" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
+  <div align="center">
+    <a href="https://github.com/GaetanCottrez/yoga-flutter-app/stargazers"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/GaetanCottrez/yoga-flutter-app"></a>
+    <a href="https://www.linkedin.com/in/gaetan-cottrez/"><img alt="LinkedIn Profile" src="https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white"></a>
+    <a href="https://github.com/GaetanCottrez/yoga-flutter-app/blob/master/LICENSE.md"><img alt="License" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
+  </div>
 </div>
 
 <br/>
@@ -30,11 +31,11 @@ project in less than 3 weeks</b></i>
 
 ## V0 Features
 
-- User-friendly interface for easy navigation.
-- Yoga pose timer with visual.
-- Access to a library of yoga poses with detailed descriptions.
-- Session search by criteria
-- Authentication
+- [X] User-friendly interface for easy navigation.
+- [X] Yoga pose timer with visual.
+- [X] Access to a library of yoga poses with detailed descriptions.
+- [ ] Session search by criteria
+- [X] Authentication
 
 ## Tech Stack
 
@@ -146,4 +147,3 @@ We hope that this enhanced version of the README will be helpful for sharing you
 with other developers and users.
 
 If you have any further questions or need additional assistance, feel free to ask. Happy coding!
-</div>
