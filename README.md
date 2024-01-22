@@ -4,7 +4,7 @@
 <div align="center">
   <a href="https://github.com/GaetanCottrez/yoga-flutter-app/stargazers"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/GaetanCottrez/yoga-flutter-app"></a>
   <a href="https://www.linkedin.com/in/gaetan-cottrez/"><img alt="LinkedIn Profile" src="https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white"></a>
-  <a href="https://github.com/GaetanCottrez/yoga-flutter-app/blob/master/README.md"><img alt="License" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
+  <a href="https://github.com/GaetanCottrez/yoga-flutter-app/blob/master/LICENSE.md"><img alt="License" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
 </div>
 
 <br/>
