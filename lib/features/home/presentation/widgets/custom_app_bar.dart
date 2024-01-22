@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:yoga_training_app/core/constants/constants.dart';
+import 'package:yoga_training_app/core/config/material_config.dart';
 import 'package:yoga_training_app/repositories/token.dart';
 
 class CustomAppBar extends StatelessWidget {

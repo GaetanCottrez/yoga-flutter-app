@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:yoga_training_app/config/environment_config.dart';
+import 'package:yoga_training_app/core/config/environment_config.dart';
 import 'package:yoga_training_app/core/error/exception.dart';
 import 'package:yoga_training_app/core/log/print.dart';
 import 'package:yoga_training_app/domain/data-sources/course.data-source.dart';

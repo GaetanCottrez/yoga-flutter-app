@@ -3,12 +3,13 @@ import "dart:math";
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:yoga_training_app/config/constant_config.dart';
+import 'package:yoga_training_app/core/config/constant_config.dart';
 import 'package:yoga_training_app/domain/entities/course.dart';
 import 'package:yoga_training_app/domain/entities/launched-session.dart';
 import 'package:yoga_training_app/domain/entities/pose.dart';
 import 'package:yoga_training_app/domain/use-cases/start_launched_session.dart';
 import 'package:yoga_training_app/features/launched_session/presentation/pages/workout_screen.dart';
+import 'package:yoga_training_app/features/launched_session/presentation/widgets/bottom_divider_widget.dart';
 import 'package:yoga_training_app/injections/course.injection.dart';
 
 class LaunchedSessionScreen extends StatelessWidget {
@@ -85,9 +86,7 @@ class LaunchedSessionScreen extends StatelessWidget {
                   );
                 }),
                 Spacer(),
-                Divider(
-                  thickness: 2,
-                ),
+                BottomDivider(),
                 Align(
                     alignment: Alignment.bottomLeft,
                     child: Padding(

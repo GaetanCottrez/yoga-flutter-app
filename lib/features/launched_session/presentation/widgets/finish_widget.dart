@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yoga_training_app/features/home/presentation/pages/home_screen.dart';
 
+import 'bottom_divider_widget.dart';
+
 class FinishWidget extends StatelessWidget {
   final String courseName;
   final int courseId;
@@ -26,9 +28,7 @@ class FinishWidget extends StatelessWidget {
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
-          Divider(
-            thickness: 2,
-          ),
+          BottomDivider(),
           ElevatedButton(
             onPressed: () {
               Navigator.pushReplacement(

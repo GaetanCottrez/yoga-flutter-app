@@ -1,6 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:yoga_training_app/core/constants/constants.dart';
+import 'package:yoga_training_app/core/config/material_config.dart';
 
 class CurvedNavigationBarBuilder extends StatelessWidget {
   final int selectedIndex;

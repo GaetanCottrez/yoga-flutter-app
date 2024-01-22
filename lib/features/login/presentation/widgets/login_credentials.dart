@@ -1,12 +1,13 @@
 import 'dart:convert';
-import 'package:http/http.dart';
+
 import 'package:flutter/material.dart';
-import 'package:yoga_training_app/core/constants/constants.dart';
-import 'package:yoga_training_app/features/home/presentation/pages/home_screen.dart';
-import 'package:yoga_training_app/config/environment_config.dart';
-import 'package:yoga_training_app/core/log/print.dart';
-import 'package:yoga_training_app/repositories/token.dart';
+import 'package:http/http.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:yoga_training_app/core/config/environment_config.dart';
+import 'package:yoga_training_app/core/config/material_config.dart';
+import 'package:yoga_training_app/core/log/print.dart';
+import 'package:yoga_training_app/features/home/presentation/pages/home_screen.dart';
+import 'package:yoga_training_app/repositories/token.dart';
 
 class LoginCredentials extends StatelessWidget {
   TextEditingController usernameController = TextEditingController();

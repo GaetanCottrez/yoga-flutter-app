@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yoga_training_app/core/constants/constants.dart';
+import 'package:yoga_training_app/core/config/material_config.dart';
 import 'package:yoga_training_app/core/log/print.dart';
 import 'package:yoga_training_app/domain/entities/course.dart';
 import 'package:yoga_training_app/domain/entities/launched-session.dart';

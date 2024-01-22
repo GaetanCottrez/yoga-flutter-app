@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:yoga_training_app/core/constants/constants.dart';
+import 'package:yoga_training_app/core/config/material_config.dart';
 import 'package:yoga_training_app/domain/entities/pose.dart';
 import 'package:yoga_training_app/domain/use-cases/stop_launched_session.dart';
 import 'package:yoga_training_app/features/launched_session/presentation/pages/breaktime_screen.dart';
