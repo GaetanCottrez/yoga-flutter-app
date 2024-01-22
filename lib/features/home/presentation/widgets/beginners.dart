@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:yoga_training_app/core/constants/constants.dart';
+import 'package:yoga_training_app/core/error/exception.dart';
 import 'package:yoga_training_app/domain/entities/course.dart';
 import 'package:yoga_training_app/domain/use-cases/get_beginner_courses.dart';
 import 'package:yoga_training_app/features/login/presentation/pages/login_screen.dart';
 import 'package:yoga_training_app/features/startup/presentation/pages/startup_screen.dart';
-import 'package:yoga_training_app/repositories/unauthorized.exception.dart';
 
 class Beginners extends StatelessWidget {
   final GetBeginnerCoursesUseCase _getBeginnerCoursesUseCase;

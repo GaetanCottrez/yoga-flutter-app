@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 import 'package:yoga_training_app/config/environment_config.dart';
+import 'package:yoga_training_app/core/error/exception.dart';
 import 'package:yoga_training_app/core/log/print.dart';
 import 'package:yoga_training_app/domain/data-sources/course.data-source.dart';
 import 'package:yoga_training_app/domain/entities/course.dart';
 import 'package:yoga_training_app/domain/entities/pose.dart';
-import 'package:yoga_training_app/repositories/unauthorized.exception.dart';
 
 class CourseRemoteDataSource implements ICourseDataSource {
   @override
