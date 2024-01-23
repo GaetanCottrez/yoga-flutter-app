@@ -28,32 +28,12 @@ class CurvedNavigationBarBuilder extends StatelessWidget {
       animationDuration: const Duration(
         milliseconds: 200,
       ),
-      items: <Widget>[
-        Icon(
-          Icons.play_arrow_outlined,
-          size: 30,
-          color: selectedIndex == 0 ? white : black,
-        ),
-        Icon(
-          Icons.search,
-          size: 30,
-          color: selectedIndex == 1 ? white : black,
-        ),
-        Icon(
-          Icons.home_outlined,
-          size: 30,
-          color: selectedIndex == 2 ? white : black,
-        ),
-        Icon(
-          Icons.favorite_border_outlined,
-          size: 30,
-          color: selectedIndex == 3 ? white : black,
-        ),
-        Icon(
-          Icons.person_outline,
-          size: 30,
-          color: selectedIndex == 4 ? white : black,
-        ),
+      items: const <Widget>[
+        Icon(Icons.play_arrow_outlined, size: 30, color: black),
+        Icon(Icons.search, size: 30, color: black),
+        Icon(Icons.home_outlined, size: 30, color: black),
+        Icon(Icons.favorite_border_outlined, size: 30, color: black),
+        Icon(Icons.person_outline, size: 30, color: black),
       ],
     );
   }
@@ -65,8 +45,7 @@ class CurvedNavigationBarBuilder extends StatelessWidget {
             context, '/search'); // Remplacez par votre route pour search
         break;
       case 2:
-        /*Navigator.pushNamed(
-            context, '/home');*/
+        Navigator.pushNamed(context, '/home');
         break;
       case 3:
         /*Navigator.pushNamed(

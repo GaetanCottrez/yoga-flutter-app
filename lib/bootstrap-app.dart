@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yoga_training_app/features/home/presentation/pages/home_screen.dart';
 import 'package:yoga_training_app/features/login/presentation/pages/login_screen.dart';
+import 'package:yoga_training_app/features/search/presentation/pages/search_screen.dart';
 import 'package:yoga_training_app/features/splash/presentation/pages/SplashScreen.dart';
 
 class MyApp extends StatelessWidget {
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/home': (context) => const HomeScreen(),
           '/login': (context) => const LoginScreen(),
+          '/search': (context) => const SearchScreen(),
         });
   }
 }

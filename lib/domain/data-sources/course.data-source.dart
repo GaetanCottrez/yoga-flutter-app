@@ -4,4 +4,6 @@ abstract class ICourseDataSource {
   Future<List<Course>> getAllCourses(String accessToken);
 
   Future<List<Course>> getBeginnerCourses(String accessToken);
+
+  Future<List<Course>> searchCourses(String accessToken, String term);
 }

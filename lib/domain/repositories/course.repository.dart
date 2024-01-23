@@ -4,4 +4,6 @@ abstract class ICourseRepository {
   Future<List<Course>> getAllCourses();
 
   Future<List<Course>> getBeginnerCourses();
+
+  Future<List<Course>> searchCourses(String term);
 }

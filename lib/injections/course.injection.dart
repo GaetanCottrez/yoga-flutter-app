@@ -5,6 +5,7 @@ import 'package:yoga_training_app/domain/repositories/launched-session.repositor
 import 'package:yoga_training_app/domain/use-cases/get_all_courses.dart';
 import 'package:yoga_training_app/domain/use-cases/get_beginner_courses.dart';
 import 'package:yoga_training_app/domain/use-cases/get_launched_session.dart';
+import 'package:yoga_training_app/domain/use-cases/search_courses.dart';
 import 'package:yoga_training_app/domain/use-cases/start_launched_session.dart';
 import 'package:yoga_training_app/domain/use-cases/stop_launched_session.dart';
 import 'package:yoga_training_app/repositories/courses/course.remote.dart';
@@ -50,5 +51,12 @@ class InjectionContainer {
     ILaunchedSessionRepository repository =
         LaunchedSessionRepository(dataSource, tokenStorage);
     return StartLaunchedSessionUseCase(repository);
+  }
+
+  static SearchCoursesUseCase provideSearchCoursesUseCase() {
+    ICourseDataSource dataSource = CourseRemoteDataSource();
+    TokenStorage tokenStorage = TokenStorage();
+    ICourseRepository repository = CourseRepository(dataSource, tokenStorage);
+    return SearchCoursesUseCase(repository);
   }
 }

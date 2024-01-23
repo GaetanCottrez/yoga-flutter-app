@@ -1,7 +1,7 @@
-import 'package:yoga_training_app/domain/repositories/course.repository.dart';
-import 'package:yoga_training_app/repositories/token.dart';
 import 'package:yoga_training_app/domain/data-sources/course.data-source.dart';
 import 'package:yoga_training_app/domain/entities/course.dart';
+import 'package:yoga_training_app/domain/repositories/course.repository.dart';
+import 'package:yoga_training_app/repositories/token.dart';
 
 class CourseRepository implements ICourseRepository {
   final ICourseDataSource dataSource;
@@ -19,5 +19,11 @@ class CourseRepository implements ICourseRepository {
   Future<List<Course>> getBeginnerCourses() async {
     var accessToken = await tokenStorage.getAccessToken();
     return dataSource.getBeginnerCourses(accessToken);
+  }
+
+  @override
+  Future<List<Course>> searchCourses(String term) async {
+    var accessToken = await tokenStorage.getAccessToken();
+    return dataSource.searchCourses(accessToken, term);
   }
 }

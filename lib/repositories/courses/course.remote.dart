@@ -14,6 +14,34 @@ class CourseRemoteDataSource implements ICourseDataSource {
     return await getCourses(accessToken, 'session');
   }
 
+  @override
+  Future<List<Course>> searchCourses(String accessToken, String term) async {
+    List<Course> courseList = [];
+    try {
+      Response response = await get(
+        Uri.parse('${EnvironmentConfig.getBaseUrl()}session/search?term=$term'),
+        headers: {'Authorization': 'Bearer $accessToken'},
+      );
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+
+        // Assuming 'data' is a list of courses
+        for (var courseJson in data['items']) {
+          courseList.add(CourseRemoteDataSource.convertJSONCourse(courseJson));
+        }
+      } else if (response.statusCode == 401) {
+        throw UnauthorizedException();
+      } else {
+        printInternal('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      printInternal(e.toString());
+      rethrow;
+    }
+    return courseList;
+  }
+
   Future<List<Course>> getCourses(String accessToken, String endpoint) async {
     List<Course> courseList = [];
     try {
