@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:yoga_training_app/features/home/presentation/pages/home_screen.dart';
-import 'package:yoga_training_app/features/login/presentation/pages/login_screen.dart';
-import 'package:yoga_training_app/features/search/presentation/pages/search_screen.dart';
-import 'package:yoga_training_app/features/splash/presentation/pages/SplashScreen.dart';
+import 'package:yoga_training_app/features/home/pages/home_screen.dart';
+import 'package:yoga_training_app/features/login/pages/login_screen.dart';
+import 'package:yoga_training_app/features/search/pages/search_screen.dart';
+import 'package:yoga_training_app/features/splash/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

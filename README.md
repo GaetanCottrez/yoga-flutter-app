@@ -34,7 +34,7 @@ project in less than 3 weeks</b></i>
 - [X] User-friendly interface for easy navigation.
 - [X] Yoga pose timer with visual.
 - [X] Access to a library of yoga poses with detailed descriptions.
-- [ ] Session search by criteria
+- [X] Session search by criteria
 - [X] Authentication
 
 ## Tech Stack
