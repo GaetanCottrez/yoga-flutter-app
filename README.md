@@ -45,7 +45,7 @@ project in less than 3 weeks</b></i>
 
 ### Prerequisites
 
-Here's what you need to be able to run Papermark:
+Here's what you need to be able to run Yoga Flutter App:
 
 - Flutter (version >= 3.16.5)
 - Dart (version >= 3.2.3)
