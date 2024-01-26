@@ -179,7 +179,7 @@ class StartupCourse extends StatelessWidget {
           Text(
             _course.name,
             style: const TextStyle(
-              fontSize: 24,
+              fontSize: 18,
               fontWeight: FontWeight.w800,
               letterSpacing: 1.5,
             ),

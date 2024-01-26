@@ -83,7 +83,7 @@ class CoursesList extends StatelessWidget {
           Text(
             'Toutes les sessions',
             style: TextStyle(
-              fontSize: 24,
+              fontSize: 19,
               fontWeight: FontWeight.w800,
               letterSpacing: 1.5,
             ),
@@ -91,7 +91,7 @@ class CoursesList extends StatelessWidget {
           Text(
             'Voir tout',
             style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.w800, color: primary),
+                fontSize: 14, fontWeight: FontWeight.w800, color: primary),
           ),
         ],
       ),

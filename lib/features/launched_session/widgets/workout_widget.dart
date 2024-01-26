@@ -30,7 +30,7 @@ class WorkOutWidget extends StatelessWidget {
     final workOutModel =
         Provider.of<WorkOutTimerModelSec>(context, listen: false);
     if (workOutModel.isDisposed) {
-      return Container(); // ou tout autre widget de remplacement approprié
+      return Container();
     }
 
     return Scaffold(
@@ -75,7 +75,7 @@ class PoseContent extends StatelessWidget {
         const Spacer(),
         PoseName(poses: poses, poseIndex: poseIndex),
         const Spacer(),
-        const CountdownTimer(),
+        const CountdownTimer(countdownTextWidget: CountdownText()),
         const SizedBox(height: 30),
         const PauseButton(),
         const Spacer(),
@@ -163,7 +163,12 @@ class PoseContent extends StatelessWidget {
 }
 
 class CountdownTimer extends StatelessWidget {
-  const CountdownTimer({Key? key}) : super(key: key);
+  final Widget countdownTextWidget;
+
+  const CountdownTimer({
+    Key? key,
+    required this.countdownTextWidget,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -174,12 +179,12 @@ class CountdownTimer extends StatelessWidget {
         color: primary,
         borderRadius: BorderRadius.circular(50),
       ),
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TimerText(),
-          Text(" : ", style: timerTextStyle),
-          CountdownText(),
+          const TimerText(),
+          const Text(" : ", style: timerTextStyle),
+          countdownTextWidget,
         ],
       ),
     );
