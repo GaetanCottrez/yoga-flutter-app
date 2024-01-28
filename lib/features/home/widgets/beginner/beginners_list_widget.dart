@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:yoga_training_app/core/config/material_config.dart';
 import 'package:yoga_training_app/core/error/exception.dart';
 import 'package:yoga_training_app/domain/entities/course.dart';
-import 'package:yoga_training_app/domain/use-cases/get_beginner_courses.dart';
+import 'package:yoga_training_app/domain/use-cases/use-cases.interface.dart';
 import 'package:yoga_training_app/features/login/pages/login_screen.dart';
 
 import 'beginner_card_widget.dart';
 
 class BeginnersList extends StatelessWidget {
-  final GetBeginnerCoursesUseCase getBeginnerCoursesUseCase;
+  final IGetBeginnerCoursesUseCase getBeginnerCoursesUseCase;
 
   const BeginnersList({Key? key, required this.getBeginnerCoursesUseCase})
       : super(key: key);
@@ -58,7 +58,7 @@ class BeginnersHeader extends StatelessWidget {
 }
 
 class BeginnersCoursesList extends StatefulWidget {
-  final GetBeginnerCoursesUseCase getBeginnerCoursesUseCase;
+  final IGetBeginnerCoursesUseCase getBeginnerCoursesUseCase;
 
   const BeginnersCoursesList(
       {Key? key, required this.getBeginnerCoursesUseCase})

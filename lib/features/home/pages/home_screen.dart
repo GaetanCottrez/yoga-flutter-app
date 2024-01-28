@@ -3,37 +3,32 @@ import 'package:yoga_training_app/core/config/material_config.dart';
 import 'package:yoga_training_app/core/log/print.dart';
 import 'package:yoga_training_app/domain/entities/course.dart';
 import 'package:yoga_training_app/domain/entities/launched-session.dart';
-import 'package:yoga_training_app/domain/use-cases/get_all_courses.dart';
-import 'package:yoga_training_app/domain/use-cases/get_beginner_courses.dart';
-import 'package:yoga_training_app/domain/use-cases/get_launched_session.dart';
-import 'package:yoga_training_app/domain/use-cases/stop_launched_session.dart';
+import 'package:yoga_training_app/domain/use-cases/use-cases.interface.dart';
 import 'package:yoga_training_app/features/home/widgets/beginner/beginners_list_widget.dart';
 import 'package:yoga_training_app/features/home/widgets/courses/courses_list_widget.dart';
 import 'package:yoga_training_app/features/home/widgets/custom_app_bar.dart';
 import 'package:yoga_training_app/features/launched_session/pages/launched_session_screen.dart';
-import 'package:yoga_training_app/injections/course.injection.dart';
 import 'package:yoga_training_app/shared/curved_navigation_bar_builder.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final IGetAllCoursesUseCase getAllCoursesUseCase;
+  final IGetBeginnerCoursesUseCase getBeginnerCoursesUseCase;
+  final IGetLaunchedSessionUseCase getLaunchedSessionUseCase;
+  final IStopLaunchedSessionUseCase stopLaunchedSessionUseCase;
+
+  const HomeScreen({
+    Key? key,
+    required this.getAllCoursesUseCase,
+    required this.getBeginnerCoursesUseCase,
+    required this.getLaunchedSessionUseCase,
+    required this.stopLaunchedSessionUseCase,
+  }) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  GetAllCoursesUseCase getAllCoursesUseCase =
-      InjectionContainer.provideGetAllCoursesUseCase();
-
-  GetBeginnerCoursesUseCase getBeginnerCoursesUseCase =
-      InjectionContainer.provideGetBeginnerCoursesUseCase();
-
-  GetLaunchedSessionUseCase getLaunchedSessionUseCase =
-      InjectionContainer.provideGetLaunchedSessionUseCase();
-
-  StopLaunchedSessionUseCase stopLaunchedSessionUseCase =
-      InjectionContainer.provideStopLaunchedSessionUseCase();
-
   int selectedIconIndex = 2;
 
   @override
@@ -47,10 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             CustomAppBar(),
             BeginnersList(
-              getBeginnerCoursesUseCase: getBeginnerCoursesUseCase,
+              getBeginnerCoursesUseCase: widget.getBeginnerCoursesUseCase,
             ),
             FutureBuilder<LaunchedSession?>(
-              future: getLaunchedSessionUseCase.call(), // Call the use case.
+              future: widget.getLaunchedSessionUseCase.call(),
+              // Call the use case.
               builder: (BuildContext context,
                   AsyncSnapshot<LaunchedSession?> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -58,9 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else if (snapshot.hasData) {
-                  _maybeShowDialog(snapshot.data);
+                  maybeShowDialog(snapshot.data);
                 }
-                return CoursesList(getAllCoursesUseCase: getAllCoursesUseCase);
+                return CoursesList(
+                    getAllCoursesUseCase: widget.getAllCoursesUseCase);
               },
             ),
           ],
@@ -73,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _maybeShowDialog(LaunchedSession? launchedSession) {
+  void maybeShowDialog(LaunchedSession? launchedSession) {
     printInternal('_maybeShowDialog');
     printInternal(launchedSession?.session);
     if (launchedSession?.session != null) {
@@ -105,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 TextButton(
                   child: const Text('Non'),
                   onPressed: () async {
-                    await stopLaunchedSessionUseCase
+                    await widget.stopLaunchedSessionUseCase
                         .call(launchedSession!.session!.id);
                     Navigator.pop(context);
                   },

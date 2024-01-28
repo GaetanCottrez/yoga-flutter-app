@@ -28,6 +28,7 @@ project in less than 3 weeks</b></i>
 - Authentication
 - Create account
 - Manage profile
+- Display complex statistics with charts
 
 ## V0 Features
 
@@ -36,6 +37,7 @@ project in less than 3 weeks</b></i>
 - [X] Access to a library of yoga poses with detailed descriptions.
 - [X] Session search by criteria
 - [X] Authentication
+- [X] Display some statistics
 
 ## Tech Stack
 

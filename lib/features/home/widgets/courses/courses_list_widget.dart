@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:yoga_training_app/core/config/material_config.dart';
 import 'package:yoga_training_app/core/error/exception.dart';
 import 'package:yoga_training_app/domain/entities/course.dart';
-import 'package:yoga_training_app/domain/use-cases/get_all_courses.dart';
+import 'package:yoga_training_app/domain/use-cases/use-cases.interface.dart';
 import 'package:yoga_training_app/features/login/pages/login_screen.dart';
 import 'package:yoga_training_app/features/startup/pages/startup_screen.dart';
 
 import 'course_card_widget.dart';
 
 class CoursesList extends StatelessWidget {
-  final GetAllCoursesUseCase _getAllCoursesUseCase;
+  final IGetAllCoursesUseCase _getAllCoursesUseCase;
 
   const CoursesList(
-      {Key? key, required GetAllCoursesUseCase getAllCoursesUseCase})
+      {Key? key, required IGetAllCoursesUseCase getAllCoursesUseCase})
       : _getAllCoursesUseCase = getAllCoursesUseCase,
         super(key: key);
 

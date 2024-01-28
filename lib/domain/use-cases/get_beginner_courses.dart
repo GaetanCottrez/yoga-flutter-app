@@ -1,11 +1,13 @@
-import 'package:yoga_training_app/domain/repositories/course.repository.dart';
 import 'package:yoga_training_app/domain/entities/course.dart';
+import 'package:yoga_training_app/domain/repositories/course.repository.dart';
+import 'package:yoga_training_app/domain/use-cases/use-cases.interface.dart';
 
-class GetBeginnerCoursesUseCase {
+class GetBeginnerCoursesUseCase implements IGetBeginnerCoursesUseCase {
   final ICourseRepository courseRepository;
 
   GetBeginnerCoursesUseCase(this.courseRepository);
 
+  @override
   Future<List<Course>> call() async {
     return await courseRepository.getBeginnerCourses();
   }

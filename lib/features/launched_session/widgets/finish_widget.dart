@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yoga_training_app/features/home/pages/home_screen.dart';
+import 'package:yoga_training_app/bootstrap-app.dart';
 
 import 'bottom_divider_widget.dart';
 
@@ -34,7 +34,7 @@ class FinishWidget extends StatelessWidget {
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
+                MaterialPageRoute(builder: (context) => instanceHomeScreen),
               );
             },
             child: Container(

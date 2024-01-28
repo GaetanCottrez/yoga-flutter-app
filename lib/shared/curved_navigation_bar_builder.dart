@@ -32,7 +32,7 @@ class CurvedNavigationBarBuilder extends StatelessWidget {
         Icon(Icons.play_arrow_outlined, size: 30, color: black),
         Icon(Icons.search, size: 30, color: black),
         Icon(Icons.home_outlined, size: 30, color: black),
-        Icon(Icons.favorite_border_outlined, size: 30, color: black),
+        Icon(Icons.query_stats, size: 30, color: black),
         Icon(Icons.person_outline, size: 30, color: black),
       ],
     );
@@ -48,8 +48,7 @@ class CurvedNavigationBarBuilder extends StatelessWidget {
         Navigator.pushNamed(context, '/home');
         break;
       case 3:
-        /*Navigator.pushNamed(
-            context, '/favorites');*/
+        Navigator.pushNamed(context, '/stats');
         break;
       case 4:
         /*Navigator.pushNamed(

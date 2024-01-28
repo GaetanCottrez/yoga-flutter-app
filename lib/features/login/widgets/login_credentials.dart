@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:yoga_training_app/bootstrap-app.dart';
 import 'package:yoga_training_app/core/config/environment_config.dart';
 import 'package:yoga_training_app/core/config/material_config.dart';
 import 'package:yoga_training_app/core/log/print.dart';
-import 'package:yoga_training_app/features/home/pages/home_screen.dart';
 import 'package:yoga_training_app/repositories/token.dart';
 
 class LoginCredentials extends StatelessWidget {
@@ -124,7 +124,7 @@ class LoginCredentials extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const HomeScreen()));
+                        builder: (context) => instanceHomeScreen));
               } else {
                 var snackBar = SnackBar(
                   content: const Text(

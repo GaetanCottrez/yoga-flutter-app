@@ -1,10 +1,13 @@
 import 'package:yoga_training_app/domain/data-sources/course.data-source.dart';
 import 'package:yoga_training_app/domain/data-sources/launched-session.data-source.dart';
+import 'package:yoga_training_app/domain/data-sources/user.data-source.dart';
 import 'package:yoga_training_app/domain/repositories/course.repository.dart';
 import 'package:yoga_training_app/domain/repositories/launched-session.repository.dart';
+import 'package:yoga_training_app/domain/repositories/user.repository.dart';
 import 'package:yoga_training_app/domain/use-cases/get_all_courses.dart';
 import 'package:yoga_training_app/domain/use-cases/get_beginner_courses.dart';
 import 'package:yoga_training_app/domain/use-cases/get_launched_session.dart';
+import 'package:yoga_training_app/domain/use-cases/get_statistics.dart';
 import 'package:yoga_training_app/domain/use-cases/search_courses.dart';
 import 'package:yoga_training_app/domain/use-cases/start_launched_session.dart';
 import 'package:yoga_training_app/domain/use-cases/stop_launched_session.dart';
@@ -13,6 +16,9 @@ import 'package:yoga_training_app/repositories/courses/course.repository.dart';
 import 'package:yoga_training_app/repositories/launched-sessions/launched-session.remote.dart';
 import 'package:yoga_training_app/repositories/launched-sessions/launched-session.repository.dart';
 import 'package:yoga_training_app/repositories/token.dart';
+import 'package:yoga_training_app/repositories/users/user.remote.dart';
+
+import '../repositories/users/user.repository.dart';
 
 class InjectionContainer {
   static GetAllCoursesUseCase provideGetAllCoursesUseCase() {
@@ -58,5 +64,12 @@ class InjectionContainer {
     TokenStorage tokenStorage = TokenStorage();
     ICourseRepository repository = CourseRepository(dataSource, tokenStorage);
     return SearchCoursesUseCase(repository);
+  }
+
+  static GetStatisticsUseCase provideGetStatisticsUseCase() {
+    IUserDataSource dataSource = UserRemoteDataSource();
+    TokenStorage tokenStorage = TokenStorage();
+    IUserRepository repository = UserRepository(dataSource, tokenStorage);
+    return GetStatisticsUseCase(repository);
   }
 }

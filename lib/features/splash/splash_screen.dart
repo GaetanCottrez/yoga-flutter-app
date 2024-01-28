@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:restart_app/restart_app.dart';
+import 'package:yoga_training_app/bootstrap-app.dart';
 import 'package:yoga_training_app/core/config/environment_config.dart';
 import 'package:yoga_training_app/core/log/print.dart';
-import 'package:yoga_training_app/features/home/pages/home_screen.dart';
 import 'package:yoga_training_app/features/login/pages/login_screen.dart';
 import 'package:yoga_training_app/repositories/token.dart';
 
@@ -91,7 +91,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (accessToken != '' && !JwtDecoder.isExpired(accessToken)) {
       Future.delayed(const Duration(seconds: 3), () {
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const HomeScreen()));
+            MaterialPageRoute(builder: (context) => instanceHomeScreen));
       });
     } else {
       Future.delayed(const Duration(seconds: 3), () {
